@@ -1,16 +1,16 @@
 :root {
-  /* Accent: the red of the darkroom safelight (dark theme) */
-  --color-amber-50: oklch(97% 0.015 20);
-  --color-amber-100: oklch(93% 0.035 20);
-  --color-amber-200: oklch(87% 0.07 22);
-  --color-amber-300: oklch(80% 0.11 23);
-  --color-amber-400: oklch(72% 0.16 25);
-  --color-amber-500: oklch(60% 0.2 27);
-  --color-amber-600: oklch(53% 0.19 27);
-  --color-amber-700: oklch(46% 0.17 27);
-  --color-amber-800: oklch(40% 0.14 27);
-  --color-amber-900: oklch(33% 0.11 27);
-  --color-amber-950: oklch(24% 0.08 27);
+  /* Accent: sepia / ink — quiet, like a toned print (dark theme) */
+  --color-amber-50: oklch(97% 0.01 80);
+  --color-amber-100: oklch(93% 0.02 78);
+  --color-amber-200: oklch(88% 0.035 75);
+  --color-amber-300: oklch(82% 0.05 72);
+  --color-amber-400: oklch(76% 0.06 70);
+  --color-amber-500: oklch(88% 0.03 75);
+  --color-amber-600: oklch(80% 0.04 72);
+  --color-amber-700: oklch(45% 0.05 60);
+  --color-amber-800: oklch(36% 0.04 58);
+  --color-amber-900: oklch(28% 0.03 55);
+  --color-amber-950: oklch(20% 0.02 55);
 }
 
 
@@ -32,17 +32,17 @@ html.light {
   --color-stone-800: oklch(90.5% 0.01 80);
   --color-stone-900: oklch(98.6% 0.004 85);
   --color-stone-950: oklch(96.5% 0.007 80);
-  --color-amber-50: oklch(30% 0.09 27);
-  --color-amber-100: oklch(38% 0.12 27);
-  --color-amber-200: oklch(43% 0.15 27);
-  --color-amber-300: oklch(48% 0.17 27);
-  --color-amber-400: oklch(52% 0.19 27);
-  --color-amber-500: oklch(55% 0.2 27);
-  --color-amber-600: oklch(64% 0.17 25);
-  --color-amber-700: oklch(78% 0.09 22);
-  --color-amber-800: oklch(88% 0.045 20);
-  --color-amber-900: oklch(94% 0.02 20);
-  --color-amber-950: oklch(97.5% 0.01 20);
+  --color-amber-50: oklch(25% 0.03 55);
+  --color-amber-100: oklch(31% 0.035 55);
+  --color-amber-200: oklch(36% 0.04 55);
+  --color-amber-300: oklch(42% 0.05 55);
+  --color-amber-400: oklch(46% 0.055 55);
+  --color-amber-500: oklch(31% 0.025 55);
+  --color-amber-600: oklch(24% 0.02 55);
+  --color-amber-700: oklch(75% 0.03 70);
+  --color-amber-800: oklch(87% 0.02 75);
+  --color-amber-900: oklch(93% 0.012 75);
+  --color-amber-950: oklch(97% 0.006 80);
   --color-cyan-50: oklch(30.2% 0.056 229.695);
   --color-cyan-100: oklch(39.8% 0.07 227.392);
   --color-cyan-200: oklch(45% 0.085 224.283);
@@ -155,17 +155,17 @@ html.light .keep-dark {
   --color-stone-800: oklch(26.8% 0.007 34.298);
   --color-stone-900: oklch(21.6% 0.006 56.043);
   --color-stone-950: oklch(14.7% 0.004 49.25);
-  --color-amber-50: oklch(97% 0.015 20);
-  --color-amber-100: oklch(93% 0.035 20);
-  --color-amber-200: oklch(87% 0.07 22);
-  --color-amber-300: oklch(80% 0.11 23);
-  --color-amber-400: oklch(72% 0.16 25);
-  --color-amber-500: oklch(60% 0.2 27);
-  --color-amber-600: oklch(53% 0.19 27);
-  --color-amber-700: oklch(46% 0.17 27);
-  --color-amber-800: oklch(40% 0.14 27);
-  --color-amber-900: oklch(33% 0.11 27);
-  --color-amber-950: oklch(24% 0.08 27);
+  --color-amber-50: oklch(97% 0.01 80);
+  --color-amber-100: oklch(93% 0.02 78);
+  --color-amber-200: oklch(88% 0.035 75);
+  --color-amber-300: oklch(82% 0.05 72);
+  --color-amber-400: oklch(76% 0.06 70);
+  --color-amber-500: oklch(88% 0.03 75);
+  --color-amber-600: oklch(80% 0.04 72);
+  --color-amber-700: oklch(45% 0.05 60);
+  --color-amber-800: oklch(36% 0.04 58);
+  --color-amber-900: oklch(28% 0.03 55);
+  --color-amber-950: oklch(20% 0.02 55);
   --color-cyan-50: oklch(98.4% 0.019 200.873);
   --color-cyan-100: oklch(95.6% 0.045 203.388);
   --color-cyan-200: oklch(91.7% 0.08 205.041);
@@ -269,11 +269,12 @@ html.light .keep-dark {
 html.light .keep-dark { color: var(--color-stone-100); }
 /* Text on solid accent buttons stays dark in both themes */
 html.light .bg-emerald-500, html.light .bg-cyan-500 { color: #1c1917; }
-/* The accent (darkroom red) always carries white text */
-.bg-amber-500, .bg-amber-400, .bg-amber-600 { color: #fff; }
-.bg-amber-500 svg, .bg-amber-400 svg { color: #fff; }
+/* Accent buttons: ink with paper text in day, paper with ink text at night */
+html.light .bg-amber-500, html.light .bg-amber-400, html.light .bg-amber-600 { color: #faf8f4; }
+.bg-amber-500, .bg-amber-400, .bg-amber-600 { color: #1c1917; }
+html.light .keep-dark .bg-amber-500 { color: #1c1917; }
 html.light .shadow-2xl, html.light .shadow-xl { box-shadow: 0 1px 2px rgb(40 30 20 / 0.05); }
-html.light ::selection { background: oklch(88% 0.045 20); }
+html.light ::selection { background: oklch(87% 0.02 75); }
 html.light ::-webkit-scrollbar-track { background: #f3efe8; }
 html.light ::-webkit-scrollbar-thumb { background: #d6d3d1; }
 html.light img { filter: none; }

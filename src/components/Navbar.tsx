@@ -37,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ page, canListen = false, onPlayT
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         <a href="#/" className="flex items-baseline gap-2.5 group shrink-0" aria-label={ui.site.home}>
           <span className="font-display font-bold text-xl tracking-[-0.03em] text-stone-100 flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" aria-hidden="true" />
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500 group-hover:scale-125 transition-transform" aria-hidden="true" />
             Lumina
           </span>
           <span className="hidden sm:block text-xs text-stone-400">{ui.brandTagline}</span>
