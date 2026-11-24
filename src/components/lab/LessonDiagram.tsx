@@ -8,9 +8,9 @@ import React from 'react';
 
 const BG = '#0c0a09';
 const FRAME = '#44403c';
-const AMBER = '#f59e0b';
-const CYAN = '#22d3ee';
-const EMERALD = '#34d399';
+const AMBER = '#c98a3c';
+const CYAN = '#8eaac4';
+const EMERALD = '#8fb59a';
 const STONE = '#a8a29e';
 const TEXT = '#e7e5e4';
 
@@ -32,7 +32,7 @@ const Person: React.FC<{ x: number; y: number; s?: number; color?: string; flip?
 
 const Tree: React.FC<{ x: number; y: number; s?: number; color?: string }> = ({ x, y, s = 1, color = EMERALD }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
-    <rect x="-3" y="-10" width="6" height="22" fill="#78350f" />
+    <rect x="-3" y="-10" width="6" height="22" fill="#6b3a22" />
     <circle cx="0" cy="-22" r="16" fill={color} />
   </g>
 );
@@ -166,7 +166,7 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
         Array.from({ length: n }, (_, i) => {
           const a = Math.sin(i * 12.9898 + seed) * 43758.5453;
           const b = Math.sin(i * 78.233 + seed) * 12345.678;
-          return <circle key={i} cx={x0 + (a - Math.floor(a)) * 160} cy={40 + (b - Math.floor(b)) * 130} r={1.2} fill={i % 3 ? '#fff' : '#f472b6'} opacity="0.75" />;
+          return <circle key={i} cx={x0 + (a - Math.floor(a)) * 160} cy={40 + (b - Math.floor(b)) * 130} r={1.2} fill={i % 3 ? '#fff' : '#c07a8a'} opacity="0.75" />;
         });
       body = (
         <g>
@@ -179,7 +179,7 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
             {dots(215, 380, 7)}
           </Frame>
           <Label x={105} y={204} color={EMERALD}>{L(0)} · ISO 100</Label>
-          <Label x={295} y={204} color="#f472b6">{L(1)} · ISO 6400</Label>
+          <Label x={295} y={204} color="#c07a8a">{L(1)} · ISO 6400</Label>
         </g>
       );
       break;
@@ -190,8 +190,8 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
         <g key={idx}>
           <defs>
             <radialGradient id={`lg${idx}`} cx={lx} cy={ly} r={soft ? 0.95 : 0.6}>
-              <stop offset="0%" stopColor="#fef3c7" />
-              <stop offset={soft ? '70%' : '45%'} stopColor="#a16207" />
+              <stop offset="0%" stopColor="#f3e7cc" />
+              <stop offset={soft ? '70%' : '45%'} stopColor="#a87a3c" />
               <stop offset="100%" stopColor="#1c1917" />
             </radialGradient>
           </defs>
@@ -202,14 +202,14 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
         <g>
           {sphere(70, 0.5, 0.45, true, 0)}
           {sphere(200, 0.1, 0.45, false, 1)}
-          <circle cx={330} cy={90} r={38} fill="#0c0a09" stroke="#fde68a" strokeWidth="3" />
+          <circle cx={330} cy={90} r={38} fill="#0c0a09" stroke="#ecd5a6" strokeWidth="3" />
           <Label x={70} y={150}>{L(0)}</Label>
           <Label x={200} y={150}>{L(1)}</Label>
           <Label x={330} y={150}>{L(2)}</Label>
           <rect x="60" y="170" width="40" height="40" rx="4" fill="none" stroke={STONE} />
-          <circle cx="80" cy="190" r="5" fill="#fde68a" />
+          <circle cx="80" cy="190" r="5" fill="#ecd5a6" />
           <Label x={130} y={195} anchor="start" color={STONE}>{L(3)}</Label>
-          <rect x="220" y="170" width="40" height="40" rx="4" fill="#fde68a" opacity="0.35" stroke={STONE} />
+          <rect x="220" y="170" width="40" height="40" rx="4" fill="#ecd5a6" opacity="0.35" stroke={STONE} />
           <Label x={290} y={195} anchor="start" color={STONE}>{L(4)}</Label>
         </g>
       );
@@ -305,9 +305,9 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
       body = (
         <Frame>
           <rect x="60" y="20" width="280" height="180" fill="#0c0a09" />
-          <path d="M120 200 L120 90 Q200 20 280 90 L280 200 Z" fill="#fde68a" opacity="0.85" />
-          <line x1="120" y1="160" x2="280" y2="160" stroke="#a16207" strokeWidth="2" />
-          <Tree x={170} y={150} s={0.8} color="#15803d" />
+          <path d="M120 200 L120 90 Q200 20 280 90 L280 200 Z" fill="#ecd5a6" opacity="0.85" />
+          <line x1="120" y1="160" x2="280" y2="160" stroke="#a87a3c" strokeWidth="2" />
+          <Tree x={170} y={150} s={0.8} color="#5b7a52" />
           <Person x={230} y={158} s={0.75} color="#1c1917" />
         </Frame>
       );
@@ -316,11 +316,11 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
     case 'comp-negative':
       body = (
         <Frame>
-          <rect x="60" y="20" width="280" height="180" fill="#1e3a5f" opacity="0.6" />
-          <line x1="60" y1="165" x2="340" y2="165" stroke="#93c5fd" strokeWidth="1.5" opacity="0.6" />
+          <rect x="60" y="20" width="280" height="180" fill="#2f4256" opacity="0.6" />
+          <line x1="60" y1="165" x2="340" y2="165" stroke="#9db4c8" strokeWidth="1.5" opacity="0.6" />
           <path d="M282 160 L312 160 L306 168 L288 168 Z" fill={AMBER} />
           <line x1="297" y1="160" x2="297" y2="138" stroke={AMBER} strokeWidth="2" />
-          <path d="M297 140 L310 156 L297 156 Z" fill="#fef3c7" />
+          <path d="M297 140 L310 156 L297 156 Z" fill="#f3e7cc" />
         </Frame>
       );
       break;
@@ -351,7 +351,7 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
           {Array.from({ length: 7 }).map((_, i) => (
             <rect key={i} x={70 + i * 36} y={170 - i * 22} width="40" height="10" fill="#78716c" />
           ))}
-          <line x1="60" y1="200" x2="340" y2="20" stroke="#e879f9" strokeWidth="2" strokeDasharray="6 4" />
+          <line x1="60" y1="200" x2="340" y2="20" stroke="#b07a9a" strokeWidth="2" strokeDasharray="6 4" />
           <path d="M150 190 L190 120 L230 190 Z" fill="none" stroke={AMBER} strokeWidth="1.5" opacity="0.6" />
         </Frame>
       );
@@ -361,13 +361,13 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
       body = (
         <g>
           <Frame x={20} y={30} w={170} h={150}>
-            <circle cx="75" cy="110" r="22" fill="#dc2626" />
-            <circle cx="135" cy="110" r="22" fill="#dc2626" />
+            <circle cx="75" cy="110" r="22" fill="#b0463c" />
+            <circle cx="135" cy="110" r="22" fill="#b0463c" />
           </Frame>
           <Frame x={210} y={30} w={170} h={150}>
-            <circle cx="260" cy="120" r="22" fill="#dc2626" />
-            <circle cx="330" cy="120" r="22" fill="#dc2626" />
-            <circle cx="295" cy="80" r="22" fill="#f59e0b" />
+            <circle cx="260" cy="120" r="22" fill="#b0463c" />
+            <circle cx="330" cy="120" r="22" fill="#b0463c" />
+            <circle cx="295" cy="80" r="22" fill="#c98a3c" />
           </Frame>
           <Label x={105} y={204} color={STONE}>2</Label>
           <Label x={295} y={204} color={EMERALD}>3 ✓</Label>
@@ -379,7 +379,7 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
       body = (
         <Frame>
           <path d="M60 110 L130 60 L190 100 L260 50 L340 105 L340 200 L60 200 Z" fill="#44403c" />
-          <path d="M60 150 Q200 120 340 150 L340 200 L60 200 Z" fill="#166534" />
+          <path d="M60 150 Q200 120 340 150 L340 200 L60 200 Z" fill="#4f6b45" />
           <Tree x={220} y={150} s={0.7} />
           <circle cx="95" cy="190" r="26" fill="#78716c" />
           <circle cx="130" cy="196" r="14" fill="#a8a29e" />
@@ -418,15 +418,15 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
       body = (
         <g>
           <Frame x={20} y={30} w={170} h={150}>
-            <rect x="20" y="30" width="170" height="100" fill="#7c2d12" opacity="0.5" />
+            <rect x="20" y="30" width="170" height="100" fill="#6b3a22" opacity="0.5" />
             <line x1="20" y1="130" x2="190" y2="130" stroke={AMBER} strokeWidth="2" />
-            <circle cx="140" cy="115" r="14" fill="#fbbf24" />
+            <circle cx="140" cy="115" r="14" fill="#e0b062" />
           </Frame>
           <Frame x={210} y={30} w={170} h={150}>
-            <line x1="210" y1="96" x2="380" y2="116" stroke="#ef4444" strokeWidth="2" />
+            <line x1="210" y1="96" x2="380" y2="116" stroke="#c2554a" strokeWidth="2" />
           </Frame>
           <Label x={105} y={204} color={EMERALD}>✓</Label>
-          <Label x={295} y={204} color="#ef4444">✗</Label>
+          <Label x={295} y={204} color="#c2554a">✗</Label>
         </g>
       );
       break;
@@ -445,8 +445,8 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
       body = (
         <Frame>
           <rect x="60" y="20" width="280" height="180" fill="#0c0a09" />
-          <path d="M170 20 L230 20 L250 200 L150 200 Z" fill="#fde68a" opacity="0.25" />
-          <Person x={200} y={175} s={1.5} color="#fde68a" />
+          <path d="M170 20 L230 20 L250 200 L150 200 Z" fill="#ecd5a6" opacity="0.25" />
+          <Person x={200} y={175} s={1.5} color="#ecd5a6" />
         </Frame>
       );
       break;
@@ -456,7 +456,7 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
         <Frame>
           {Array.from({ length: 5 }).map((_, r) =>
             Array.from({ length: 9 }).map((_, c) => (
-              <rect key={`${r}-${c}`} x={74 + c * 29} y={32 + r * 33} width="22" height="24" rx="3" fill={r === 2 && c === 6 ? '#dc2626' : '#57534e'} />
+              <rect key={`${r}-${c}`} x={74 + c * 29} y={32 + r * 33} width="22" height="24" rx="3" fill={r === 2 && c === 6 ? '#b0463c' : '#57534e'} />
             ))
           )}
         </Frame>
@@ -482,14 +482,14 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
           <Frame x={20} y={30} w={170} h={150}>
             <Person x={105} y={150} s={1} />
             <rect x="96" y="60" width="4" height="70" fill={STONE} />
-            <rect x="80" y="50" width="36" height="16" fill="#ef4444" />
+            <rect x="80" y="50" width="36" height="16" fill="#c2554a" />
             <rect x="30" y="150" width="20" height="25" fill={STONE} />
             <circle cx="170" cy="60" r="10" fill={STONE} />
           </Frame>
           <Frame x={210} y={30} w={170} h={150}>
             <Person x={295} y={150} s={1.4} />
           </Frame>
-          <Label x={105} y={204} color="#ef4444">✗</Label>
+          <Label x={105} y={204} color="#c2554a">✗</Label>
           <Label x={295} y={204} color={EMERALD}>✓</Label>
         </g>
       );
@@ -517,7 +517,7 @@ export const LessonDiagram: React.FC<{ id: string; labels?: string[] }> = ({ id,
           <path d="M0 0 L10 5 L0 10 z" fill={STONE} />
         </marker>
         <linearGradient id="gradSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1e3a5f" />
+          <stop offset="0%" stopColor="#2f4256" />
           <stop offset="100%" stopColor="#0c0a09" />
         </linearGradient>
       </defs>

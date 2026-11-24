@@ -53,8 +53,8 @@ export const CameraObscuraVisualizer: React.FC = () => {
           {/* DEFINITIONS */}
           <defs>
             <linearGradient id="outsideSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#fef08a" />
+              <stop offset="0%" stopColor="#8eaac4" />
+              <stop offset="100%" stopColor="#ecd5a6" />
             </linearGradient>
             <linearGradient id="darkRoomGrad" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#18181b" />
@@ -69,23 +69,23 @@ export const CameraObscuraVisualizer: React.FC = () => {
           <rect x="0" y="0" width="480" height="450" fill="url(#outsideSky)" opacity="0.9" />
 
           {/* Outside Ground */}
-          <rect x="0" y="320" width="480" height="130" fill="#15803d" />
+          <rect x="0" y="320" width="480" height="130" fill="#5b7a52" />
 
           {/* Outside Sun */}
-          <circle cx="90" cy="80" r="35" fill="#facc15" />
-          <circle cx="90" cy="80" r="45" fill="#fde047" opacity="0.3" />
+          <circle cx="90" cy="80" r="35" fill="#dcb45a" />
+          <circle cx="90" cy="80" r="45" fill="#e6c97a" opacity="0.3" />
 
           {/* Outside Tree (Real World Subject) */}
           <g transform="translate(180, 140)">
             {/* Trunk */}
-            <rect x="35" y="100" width="30" height="100" fill="#78350f" rx="3" />
+            <rect x="35" y="100" width="30" height="100" fill="#6b3a22" rx="3" />
             {/* Foliage */}
-            <circle cx="50" cy="80" r="60" fill="#166534" />
-            <circle cx="20" cy="50" r="40" fill="#15803d" />
-            <circle cx="80" cy="50" r="40" fill="#22c55e" />
-            <circle cx="50" cy="20" r="40" fill="#4ade80" />
+            <circle cx="50" cy="80" r="60" fill="#4f6b45" />
+            <circle cx="20" cy="50" r="40" fill="#5b7a52" />
+            <circle cx="80" cy="50" r="40" fill="#6f9a62" />
+            <circle cx="50" cy="20" r="40" fill="#8fb59a" />
             {/* Top Star Mark */}
-            <circle cx="50" cy="0" r="6" fill="#ef4444" />
+            <circle cx="50" cy="0" r="6" fill="#c2554a" />
           </g>
 
           {/* Outside Text Label */}
@@ -106,7 +106,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
             y={225 - pinholeSize * 3}
             width="40"
             height={pinholeSize * 6}
-            fill="#fef08a"
+            fill="#ecd5a6"
             opacity="0.85"
           />
 
@@ -129,12 +129,12 @@ export const CameraObscuraVisualizer: React.FC = () => {
           >
             {/* Projected upside-down tree */}
             <g transform="translate(850, 140)">
-              <rect x="35" y="100" width="25" height="90" fill="#78350f" rx="3" />
-              <circle cx="50" cy="80" r="50" fill="#166534" />
-              <circle cx="20" cy="50" r="35" fill="#15803d" />
-              <circle cx="80" cy="50" r="35" fill="#22c55e" />
-              <circle cx="50" cy="20" r="35" fill="#4ade80" />
-              <circle cx="50" cy="0" r="6" fill="#ef4444" />
+              <rect x="35" y="100" width="25" height="90" fill="#6b3a22" rx="3" />
+              <circle cx="50" cy="80" r="50" fill="#4f6b45" />
+              <circle cx="20" cy="50" r="35" fill="#5b7a52" />
+              <circle cx="80" cy="50" r="35" fill="#6f9a62" />
+              <circle cx="50" cy="20" r="35" fill="#8fb59a" />
+              <circle cx="50" cy="0" r="6" fill="#c2554a" />
             </g>
           </g>
 
@@ -147,7 +147,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
                 y1="140"
                 x2="500"
                 y2="225"
-                stroke="#ef4444"
+                stroke="#c2554a"
                 strokeWidth="2.5"
                 strokeDasharray="6,4"
               />
@@ -156,7 +156,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
                 y1="225"
                 x2="940"
                 y2="310"
-                stroke="#ef4444"
+                stroke="#c2554a"
                 strokeWidth="2.5"
                 strokeDasharray="6,4"
               />
@@ -167,7 +167,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
                 y1="340"
                 x2="500"
                 y2="225"
-                stroke="#22c55e"
+                stroke="#6f9a62"
                 strokeWidth="2.5"
                 strokeDasharray="6,4"
               />
@@ -176,7 +176,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
                 y1="225"
                 x2="940"
                 y2="140"
-                stroke="#22c55e"
+                stroke="#6f9a62"
                 strokeWidth="2.5"
                 strokeDasharray="6,4"
               />
@@ -187,7 +187,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
                 y1="80"
                 x2="500"
                 y2="225"
-                stroke="#facc15"
+                stroke="#dcb45a"
                 strokeWidth="1.5"
                 strokeDasharray="4,4"
                 opacity="0.6"
@@ -197,7 +197,7 @@ export const CameraObscuraVisualizer: React.FC = () => {
                 y1="225"
                 x2="940"
                 y2="370"
-                stroke="#facc15"
+                stroke="#dcb45a"
                 strokeWidth="1.5"
                 strokeDasharray="4,4"
                 opacity="0.6"
@@ -206,16 +206,16 @@ export const CameraObscuraVisualizer: React.FC = () => {
           )}
 
           {/* Labels Inside */}
-          <text x="600" y="50" fill="#f59e0b" fontSize="15" fontWeight="bold">
+          <text x="600" y="50" fill="#c98a3c" fontSize="15" fontWeight="bold">
             {O.room}
           </text>
           <text x="600" y="75" fill="#a1a1aa" fontSize="12">
             {O.inverted}
           </text>
-          <text x="830" y="380" fill="#ef4444" fontSize="12" fontWeight="bold">
+          <text x="830" y="380" fill="#c2554a" fontSize="12" fontWeight="bold">
             {O.treeTop}
           </text>
-          <text x="830" y="130" fill="#22c55e" fontSize="12" fontWeight="bold">
+          <text x="830" y="130" fill="#6f9a62" fontSize="12" fontWeight="bold">
             {O.treeRoot}
           </text>
         </svg>

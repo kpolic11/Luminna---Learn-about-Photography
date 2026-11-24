@@ -99,7 +99,7 @@ const Tap: React.FC<{ t: Extract<Test, { kind: 'tap' }>; onDone?: Done }> = ({ t
         <img src={photoUrl(t.photo)} alt="" className="absolute inset-0 w-full h-full object-cover" />
         {hit && (
           <>
-            <span className="absolute w-5 h-5 -ml-2.5 -mt-2.5 rounded-full border-4" style={{ left: `${hit.x * 100}%`, top: `${hit.y * 100}%`, borderColor: hit.ok ? '#4ade80' : '#f87171' }} />
+            <span className="absolute w-5 h-5 -ml-2.5 -mt-2.5 rounded-full border-4" style={{ left: `${hit.x * 100}%`, top: `${hit.y * 100}%`, borderColor: hit.ok ? '#8fb59a' : '#c96a5e' }} />
             <span
               className="absolute rounded-full border-4 border-emerald-400 border-dashed"
               style={{

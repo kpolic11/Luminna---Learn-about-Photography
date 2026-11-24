@@ -308,20 +308,20 @@ export const DiffractionWidget: React.FC = () => {
           ))}
           <defs>
             <radialGradient id="airyG">
-              <stop offset="0%" stopColor="#fde68a" stopOpacity="1" />
-              <stop offset="70%" stopColor="#f59e0b" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+              <stop offset="0%" stopColor="#ecd5a6" stopOpacity="1" />
+              <stop offset="70%" stopColor="#c98a3c" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#c98a3c" stopOpacity="0" />
             </radialGradient>
           </defs>
           <circle cx="80" cy="60" r={Math.min(75, (airy * scale) / 2)} fill="url(#airyG)" />
-          <circle cx="80" cy="60" r={Math.min(75, (airy * scale) / 2)} fill="none" stroke="#fbbf24" strokeWidth="0.8" strokeDasharray="2 2" />
+          <circle cx="80" cy="60" r={Math.min(75, (airy * scale) / 2)} fill="none" stroke="#e0b062" strokeWidth="0.8" strokeDasharray="2 2" />
           <rect x={0} y={92} width={160} height={28} fill="#0c0a09" opacity="0.75" />
           <rect x={6} y={98} width={Math.min(10, p * scale)} height={Math.min(10, p * scale)} fill="#78716c" />
           <text x={20} y={106} fontSize="7" fill="#a8a29e">
             {t.pixel} {num(p)} µm
           </text>
-          <circle cx={11} cy={113} r={3} fill="#fbbf24" />
-          <text x={20} y={116} fontSize="7" fill="#fbbf24">
+          <circle cx={11} cy={113} r={3} fill="#e0b062" />
+          <text x={20} y={116} fontSize="7" fill="#e0b062">
             {t.airy} {num(airy)} µm
           </text>
         </svg>
@@ -345,18 +345,18 @@ export const DiffractionWidget: React.FC = () => {
           <svg viewBox="0 0 200 50" className="w-full">
             <polyline
               fill="none"
-              stroke="#f59e0b"
+              stroke="#c98a3c"
               strokeWidth="1.5"
               points={sharp.map((s, k) => `${10 + (k * 180) / (STOPS_F.length - 1)},${44 - s * 38}`).join(' ')}
             />
             {STOPS_F.map((n, k) => (
               <g key={n}>
-                <text x={10 + (k * 180) / (STOPS_F.length - 1)} y={50} fontSize="5.5" textAnchor="middle" fill={k === i ? '#fbbf24' : '#78716c'}>
+                <text x={10 + (k * 180) / (STOPS_F.length - 1)} y={50} fontSize="5.5" textAnchor="middle" fill={k === i ? '#e0b062' : '#78716c'}>
                   {num(n)}
                 </text>
               </g>
             ))}
-            <circle cx={10 + (i * 180) / (STOPS_F.length - 1)} cy={44 - sharp[i] * 38} r="3" fill="#fbbf24" />
+            <circle cx={10 + (i * 180) / (STOPS_F.length - 1)} cy={44 - sharp[i] * 38} r="3" fill="#e0b062" />
           </svg>
         </div>
       </div>
@@ -401,9 +401,9 @@ export const InverseSquareWidget: React.FC = () => {
           {t.invBackground}
         </text>
         {/* light cone */}
-        <polygon points={`${px(0) + 6},55 ${px(bgD)},${55 - 18 * bgD} ${px(bgD)},${55 + 18 * bgD}`} fill="#fde68a" opacity="0.08" />
-        <rect x={px(0) - 4} y={45} width={10} height={20} rx={2} fill="#fbbf24" />
-        <text x={px(0) - 6} y={76} fontSize="7" fill="#fbbf24">
+        <polygon points={`${px(0) + 6},55 ${px(bgD)},${55 - 18 * bgD} ${px(bgD)},${55 + 18 * bgD}`} fill="#ecd5a6" opacity="0.08" />
+        <rect x={px(0) - 4} y={45} width={10} height={20} rx={2} fill="#e0b062" />
+        <text x={px(0) - 6} y={76} fontSize="7" fill="#e0b062">
           {t.invLight}
         </text>
         <circle cx={px(d)} cy={42} r={7} fill={tone(subjL)} />
@@ -453,15 +453,15 @@ export const AspectWidget: React.FC = () => {
   const scene = useMemo(
     () => (
       <g>
-        <rect width={W} height={H} fill="#7dd3fc" />
-        <rect y={92} width={W} height={58} fill="#65a30d" />
+        <rect width={W} height={H} fill="#9db4c8" />
+        <rect y={92} width={W} height={58} fill="#8aa06a" />
         <path d="M0 92 L40 60 L80 85 L130 50 L180 88 L240 70 L240 92 Z" fill="#475569" />
-        <circle cx={200} cy={30} r={12} fill="#fde047" />
-        <rect x={52} y={70} width={6} height={30} fill="#78350f" />
-        <circle cx={55} cy={62} r={16} fill="#166534" />
-        <circle cx={150} cy={102} r={4} fill="#fcd34d" />
-        <rect x={146} y={106} width={8} height={18} rx={2} fill="#b91c1c" />
-        <path d="M0 150 Q120 110 240 140 L240 150 Z" fill="#a16207" opacity="0.6" />
+        <circle cx={200} cy={30} r={12} fill="#e6c97a" />
+        <rect x={52} y={70} width={6} height={30} fill="#6b3a22" />
+        <circle cx={55} cy={62} r={16} fill="#4f6b45" />
+        <circle cx={150} cy={102} r={4} fill="#e0b062" />
+        <rect x={146} y={106} width={8} height={18} rx={2} fill="#8f3030" />
+        <path d="M0 150 Q120 110 240 140 L240 150 Z" fill="#a87a3c" opacity="0.6" />
       </g>
     ),
     [],
@@ -471,9 +471,9 @@ export const AspectWidget: React.FC = () => {
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-lg">
         {scene}
         <path d={`M0 0 H${W} V${H} H0 Z M${fx} ${fy} v${fh} h${fw} v${-fh} Z`} fill="#0c0a09" opacity="0.7" fillRule="evenodd" />
-        <rect x={fx} y={fy} width={fw} height={fh} fill="none" stroke="#fbbf24" strokeWidth="1.5" />
+        <rect x={fx} y={fy} width={fw} height={fh} fill="none" stroke="#e0b062" strokeWidth="1.5" />
         {[1, 2].map((k) => (
-          <g key={k} stroke="#fbbf24" strokeWidth="0.4" opacity="0.6">
+          <g key={k} stroke="#e0b062" strokeWidth="0.4" opacity="0.6">
             <line x1={fx + (fw * k) / 3} y1={fy} x2={fx + (fw * k) / 3} y2={fy + fh} />
             <line x1={fx} y1={fy + (fh * k) / 3} x2={fx + fw} y2={fy + (fh * k) / 3} />
           </g>

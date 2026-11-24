@@ -179,31 +179,31 @@ export const CompositionTool: React.FC = () => {
 
         {activeOverlay === 'spiral' && (
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 62.5" preserveAspectRatio="none">
-            <path d="M 0,62.5 A 61.8,61.8 0 0 1 61.8,0.7" fill="none" stroke="#f59e0b" strokeWidth="0.6" strokeDasharray="2,1" />
-            <path d="M 61.8,0.7 A 38.2,38.2 0 0 1 100,38.9" fill="none" stroke="#f59e0b" strokeWidth="0.6" strokeDasharray="2,1" />
-            <path d="M 100,38.9 A 23.6,23.6 0 0 1 76.4,62.5" fill="none" stroke="#f59e0b" strokeWidth="0.6" strokeDasharray="2,1" />
-            <path d="M 76.4,62.5 A 14.6,14.6 0 0 1 61.8,47.9" fill="none" stroke="#f59e0b" strokeWidth="0.6" strokeDasharray="2,1" />
-            <path d="M 61.8,47.9 A 9,9 0 0 1 70.8,38.9" fill="none" stroke="#f59e0b" strokeWidth="0.6" strokeDasharray="2,1" />
-            <rect x="61.8" y="0" width="38.2" height="62.5" fill="none" stroke="#f59e0b" strokeWidth="0.25" opacity="0.5" />
-            <rect x="61.8" y="38.9" width="38.2" height="23.6" fill="none" stroke="#f59e0b" strokeWidth="0.25" opacity="0.5" />
+            <path d="M 0,62.5 A 61.8,61.8 0 0 1 61.8,0.7" fill="none" stroke="#c98a3c" strokeWidth="0.6" strokeDasharray="2,1" />
+            <path d="M 61.8,0.7 A 38.2,38.2 0 0 1 100,38.9" fill="none" stroke="#c98a3c" strokeWidth="0.6" strokeDasharray="2,1" />
+            <path d="M 100,38.9 A 23.6,23.6 0 0 1 76.4,62.5" fill="none" stroke="#c98a3c" strokeWidth="0.6" strokeDasharray="2,1" />
+            <path d="M 76.4,62.5 A 14.6,14.6 0 0 1 61.8,47.9" fill="none" stroke="#c98a3c" strokeWidth="0.6" strokeDasharray="2,1" />
+            <path d="M 61.8,47.9 A 9,9 0 0 1 70.8,38.9" fill="none" stroke="#c98a3c" strokeWidth="0.6" strokeDasharray="2,1" />
+            <rect x="61.8" y="0" width="38.2" height="62.5" fill="none" stroke="#c98a3c" strokeWidth="0.25" opacity="0.5" />
+            <rect x="61.8" y="38.9" width="38.2" height="23.6" fill="none" stroke="#c98a3c" strokeWidth="0.25" opacity="0.5" />
           </svg>
         )}
 
         {activeOverlay === 'diagonals' && (
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 62.5" preserveAspectRatio="none">
-            <line x1="0" y1="0" x2="100" y2="62.5" stroke="#e879f9" strokeWidth="0.5" strokeDasharray="2,1" />
-            <line x1="100" y1="0" x2="0" y2="62.5" stroke="#e879f9" strokeWidth="0.5" strokeDasharray="2,1" />
+            <line x1="0" y1="0" x2="100" y2="62.5" stroke="#b07a9a" strokeWidth="0.5" strokeDasharray="2,1" />
+            <line x1="100" y1="0" x2="0" y2="62.5" stroke="#b07a9a" strokeWidth="0.5" strokeDasharray="2,1" />
             {/* Baroque/sinister reciprocals: perpendiculars from the other corners */}
-            <line x1="0" y1="62.5" x2="28" y2="17.5" stroke="#e879f9" strokeWidth="0.35" opacity="0.7" />
-            <line x1="100" y1="0" x2="72" y2="45" stroke="#e879f9" strokeWidth="0.35" opacity="0.7" />
+            <line x1="0" y1="62.5" x2="28" y2="17.5" stroke="#b07a9a" strokeWidth="0.35" opacity="0.7" />
+            <line x1="100" y1="0" x2="72" y2="45" stroke="#b07a9a" strokeWidth="0.35" opacity="0.7" />
           </svg>
         )}
 
         {activeOverlay === 'lines' && (
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 62.5" preserveAspectRatio="none">
-            <line x1="0" y1="62.5" x2="60" y2="30" stroke="#10b981" strokeWidth="0.8" strokeDasharray="2,1" />
-            <line x1="100" y1="62.5" x2="60" y2="30" stroke="#10b981" strokeWidth="0.8" strokeDasharray="2,1" />
-            <circle cx="60" cy="30" r="3" fill="none" stroke="#10b981" strokeWidth="0.8" />
+            <line x1="0" y1="62.5" x2="60" y2="30" stroke="#6f9a7a" strokeWidth="0.8" strokeDasharray="2,1" />
+            <line x1="100" y1="62.5" x2="60" y2="30" stroke="#6f9a7a" strokeWidth="0.8" strokeDasharray="2,1" />
+            <circle cx="60" cy="30" r="3" fill="none" stroke="#6f9a7a" strokeWidth="0.8" />
           </svg>
         )}
 

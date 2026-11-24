@@ -76,15 +76,15 @@ export const EquivalentWidget: React.FC = () => {
         <g filter="url(#eqBg)">
           {[40, 110, 180, 250, 320, 380].map((x, i) => (
             <g key={x}>
-              <rect x={x - 6} y={70 + (i % 2) * 10} width="12" height="40" fill="#78350f" />
-              <circle cx={x} cy={65 + (i % 2) * 10} r="26" fill={i % 2 ? '#15803d' : '#166534'} />
+              <rect x={x - 6} y={70 + (i % 2) * 10} width="12" height="40" fill="#6b3a22" />
+              <circle cx={x} cy={65 + (i % 2) * 10} r="26" fill={i % 2 ? '#5b7a52' : '#4f6b45'} />
             </g>
           ))}
-          <rect x="0" y="120" width="400" height="60" fill="#3f6212" />
+          <rect x="0" y="120" width="400" height="60" fill="#4f6b45" />
         </g>
         <g filter="url(#eqMo)">
-          <circle cx="200" cy="96" r="10" fill="#f59e0b" />
-          <path d="M200 106 L200 138 M200 116 L186 128 M200 116 L214 124 M200 138 L190 160 M200 138 L212 158" stroke="#f59e0b" strokeWidth="5" strokeLinecap="round" />
+          <circle cx="200" cy="96" r="10" fill="#c98a3c" />
+          <path d="M200 106 L200 138 M200 116 L186 128 M200 116 L214 124 M200 138 L190 160 M200 138 L212 158" stroke="#c98a3c" strokeWidth="5" strokeLinecap="round" />
         </g>
       </svg>
       <div className="mt-4 flex items-center gap-3">
@@ -149,8 +149,8 @@ export const HistogramWidget: React.FC = () => {
         <svg viewBox="0 0 200 130" className="w-full rounded-xl">
           <defs>
             <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#bae6fd" />
-              <stop offset="100%" stopColor="#e0f2fe" />
+              <stop offset="0%" stopColor="#c9d6e0" />
+              <stop offset="100%" stopColor="#e3e9ee" />
             </linearGradient>
           </defs>
           <g style={{ filter: `brightness(${Math.pow(2, ev * 0.55)})` }}>
@@ -163,7 +163,7 @@ export const HistogramWidget: React.FC = () => {
         <div>
           <svg viewBox="0 0 200 110" className="w-full rounded-xl bg-stone-900">
             {bins.map((b, i) => (
-              <rect key={i} x={4 + i * (192 / BINS)} y={100 - (b / max) * 90} width={192 / BINS - 0.8} height={(b / max) * 90} fill={(i === 0 && clipLow) || (i === BINS - 1 && clipHigh) ? '#ef4444' : '#d6d3d1'} />
+              <rect key={i} x={4 + i * (192 / BINS)} y={100 - (b / max) * 90} width={192 / BINS - 0.8} height={(b / max) * 90} fill={(i === 0 && clipLow) || (i === BINS - 1 && clipHigh) ? '#c2554a' : '#d6d3d1'} />
             ))}
             <line x1="4" y1="100" x2="196" y2="100" stroke="#57534e" />
           </svg>
@@ -260,8 +260,8 @@ export const WhiteBalanceWidget: React.FC = () => {
         <svg viewBox="0 0 400 150" className="w-full block bg-stone-200">
           <rect x="0" y="100" width="400" height="50" fill="#a8a29e" />
           <rect x="60" y="30" width="110" height="80" fill="#ffffff" stroke="#d6d3d1" />
-          <circle cx="250" cy="85" r="28" fill="#dc2626" />
-          <rect x="300" y="50" width="50" height="60" fill="#2563eb" />
+          <circle cx="250" cy="85" r="28" fill="#b0463c" />
+          <rect x="300" y="50" width="50" height="60" fill="#4f6a86" />
           <rect x="190" y="105" width="140" height="10" fill="#78716c" />
         </svg>
         <div className="absolute inset-0 mix-blend-multiply pointer-events-none" style={{ background: cast }} />
@@ -366,19 +366,19 @@ export const DofWidget: React.FC<{ lessonId?: string }> = ({ lessonId }) => {
     <Card>
       <p className="text-xs text-stone-400 mb-2">{W.dofTop}</p>
       <svg viewBox="0 0 400 120" className="w-full rounded-xl bg-stone-900">
-        <rect x={X(near)} y="20" width={Math.max(2, X(far) - X(near))} height="70" fill="#34d399" opacity="0.22" />
-        <line x1={X(dist)} y1="14" x2={X(dist)} y2="96" stroke="#f59e0b" strokeWidth="2" />
+        <rect x={X(near)} y="20" width={Math.max(2, X(far) - X(near))} height="70" fill="#8fb59a" opacity="0.22" />
+        <line x1={X(dist)} y1="14" x2={X(dist)} y2="96" stroke="#c98a3c" strokeWidth="2" />
         {/* camera */}
         <rect x="6" y="45" width="18" height="20" rx="3" fill="#a8a29e" />
         <path d="M24 50 L30 47 L30 63 L24 60 Z" fill="#78716c" />
         {/* subjects */}
         <g>
-          <circle cx={X(SUBJECT_DIST[0])} cy="72" r="5" fill="#f472b6" />
-          <line x1={X(SUBJECT_DIST[0])} y1="77" x2={X(SUBJECT_DIST[0])} y2="88" stroke="#22c55e" strokeWidth="2" />
-          <circle cx={X(SUBJECT_DIST[1])} cy="44" r="6" fill="#fbbf24" />
-          <line x1={X(SUBJECT_DIST[1])} y1="50" x2={X(SUBJECT_DIST[1])} y2="74" stroke="#fbbf24" strokeWidth="4" strokeLinecap="round" />
-          <circle cx={X(SUBJECT_DIST[2])} cy="45" r="13" fill="#16a34a" />
-          <rect x={X(SUBJECT_DIST[2]) - 2} y="56" width="4" height="22" fill="#78350f" />
+          <circle cx={X(SUBJECT_DIST[0])} cy="72" r="5" fill="#c07a8a" />
+          <line x1={X(SUBJECT_DIST[0])} y1="77" x2={X(SUBJECT_DIST[0])} y2="88" stroke="#6f9a62" strokeWidth="2" />
+          <circle cx={X(SUBJECT_DIST[1])} cy="44" r="6" fill="#e0b062" />
+          <line x1={X(SUBJECT_DIST[1])} y1="50" x2={X(SUBJECT_DIST[1])} y2="74" stroke="#e0b062" strokeWidth="4" strokeLinecap="round" />
+          <circle cx={X(SUBJECT_DIST[2])} cy="45" r="13" fill="#5b7a52" />
+          <rect x={X(SUBJECT_DIST[2]) - 2} y="56" width="4" height="22" fill="#6b3a22" />
         </g>
         {ticks.map((t) => (
           <g key={t}>
@@ -401,21 +401,21 @@ export const DofWidget: React.FC<{ lessonId?: string }> = ({ lessonId }) => {
               <svg viewBox="0 0 60 60" className="w-full h-16" style={{ filter: `blur(${px}px)` }}>
                 {i === 0 && (
                   <g>
-                    <circle cx="30" cy="22" r="10" fill="#f472b6" />
-                    <circle cx="30" cy="22" r="4" fill="#fde047" />
-                    <rect x="28.5" y="32" width="3" height="22" fill="#22c55e" />
+                    <circle cx="30" cy="22" r="10" fill="#c07a8a" />
+                    <circle cx="30" cy="22" r="4" fill="#e6c97a" />
+                    <rect x="28.5" y="32" width="3" height="22" fill="#6f9a62" />
                   </g>
                 )}
                 {i === 1 && (
                   <g>
-                    <circle cx="30" cy="16" r="8" fill="#fbbf24" />
-                    <rect x="22" y="25" width="16" height="28" rx="6" fill="#f59e0b" />
+                    <circle cx="30" cy="16" r="8" fill="#e0b062" />
+                    <rect x="22" y="25" width="16" height="28" rx="6" fill="#c98a3c" />
                   </g>
                 )}
                 {i === 2 && (
                   <g>
-                    <circle cx="30" cy="22" r="16" fill="#16a34a" />
-                    <rect x="27" y="36" width="6" height="20" fill="#78350f" />
+                    <circle cx="30" cy="22" r="16" fill="#5b7a52" />
+                    <rect x="27" y="36" width="6" height="20" fill="#6b3a22" />
                   </g>
                 )}
               </svg>
@@ -501,28 +501,28 @@ export const FocalWidget: React.FC = () => {
     <Card>
       <div className="grid sm:grid-cols-[160px_1fr] gap-3 items-center">
         <svg viewBox="0 0 160 120" className="w-full">
-          <path d={`M20 60 L${20 + 130 * Math.cos(half)} ${60 - 130 * Math.sin(half)} A130 130 0 0 1 ${20 + 130 * Math.cos(half)} ${60 + 130 * Math.sin(half)} Z`} fill="#f59e0b" opacity="0.25" stroke="#f59e0b" />
+          <path d={`M20 60 L${20 + 130 * Math.cos(half)} ${60 - 130 * Math.sin(half)} A130 130 0 0 1 ${20 + 130 * Math.cos(half)} ${60 + 130 * Math.sin(half)} Z`} fill="#c98a3c" opacity="0.25" stroke="#c98a3c" />
           <rect x="6" y="52" width="16" height="16" rx="3" fill="#a8a29e" />
           <text x="80" y="115" fill="#e7e5e4" fontSize="11" textAnchor="middle">
             {fov.toFixed(0)}°
           </text>
         </svg>
         <svg viewBox={`${cx - vw / 2} ${cy - vh / 2} ${vw} ${vh}`} className="w-full rounded-xl" preserveAspectRatio="xMidYMid slice">
-          <rect x="0" y="0" width="800" height="600" fill="#7dd3fc" />
+          <rect x="0" y="0" width="800" height="600" fill="#9db4c8" />
           <path d="M0 330 L120 220 L230 300 L360 180 L470 290 L590 210 L800 320 L800 600 L0 600 Z" fill="#78716c" />
-          <rect x="0" y="380" width="800" height="220" fill="#65a30d" />
+          <rect x="0" y="380" width="800" height="220" fill="#8aa06a" />
           <rect x="320" y="300" width="120" height="110" fill="#e7e5e4" />
-          <path d="M310 300 L380 250 L450 300 Z" fill="#b91c1c" />
-          <rect x="370" y="350" width="22" height="60" fill="#78350f" />
-          <circle cx="395" cy="430" r="7" fill="#fbbf24" />
-          <rect x="390" y="437" width="10" height="22" rx="3" fill="#f59e0b" />
+          <path d="M310 300 L380 250 L450 300 Z" fill="#8f3030" />
+          <rect x="370" y="350" width="22" height="60" fill="#6b3a22" />
+          <circle cx="395" cy="430" r="7" fill="#e0b062" />
+          <rect x="390" y="437" width="10" height="22" rx="3" fill="#c98a3c" />
           {[80, 160, 620, 720].map((x) => (
             <g key={x}>
-              <rect x={x - 4} y="360" width="8" height="40" fill="#78350f" />
-              <circle cx={x} cy="350" r="26" fill="#15803d" />
+              <rect x={x - 4} y="360" width="8" height="40" fill="#6b3a22" />
+              <circle cx={x} cy="350" r="26" fill="#5b7a52" />
             </g>
           ))}
-          <circle cx="680" cy="90" r="30" fill="#fef9c3" />
+          <circle cx="680" cy="90" r="30" fill="#f3e7cc" />
         </svg>
       </div>
       <div className="mt-4 flex items-center gap-3 text-xs">
@@ -556,8 +556,8 @@ export const LightDirWidget: React.FC = () => {
       <svg viewBox="0 0 120 90" className="w-full max-w-md mx-auto block rounded-xl bg-stone-900">
         <defs>
           <radialGradient id="ldSphere" cx={`${hx}%`} cy={`${hy}%`} r={`${55 + size * 40}%`}>
-            <stop offset="0%" stopColor="#fde68a" stopOpacity={0.4 + lit * 0.6} />
-            <stop offset={`${35 + size * 40}%`} stopColor="#d97706" />
+            <stop offset="0%" stopColor="#ecd5a6" stopOpacity={0.4 + lit * 0.6} />
+            <stop offset={`${35 + size * 40}%`} stopColor="#c98a3c" />
             <stop offset="100%" stopColor="#1c1917" />
           </radialGradient>
           <filter id="ldBlur">
@@ -567,7 +567,7 @@ export const LightDirWidget: React.FC = () => {
         <rect x="0" y="62" width="120" height="28" fill="#292524" />
         <ellipse cx={shadowX} cy="70" rx={16 + size * 6} ry="4" fill="#000" opacity={0.75 - size * 0.4} filter="url(#ldBlur)" />
         <circle cx="60" cy="45" r="20" fill="url(#ldSphere)" />
-        <circle cx={60 - 52 * Math.sin(rad)} cy={20} r={2 + size * 6} fill="#fef9c3" opacity={angle > 150 ? 0.5 : 1} />
+        <circle cx={60 - 52 * Math.sin(rad)} cy={20} r={2 + size * 6} fill="#f3e7cc" opacity={angle > 150 ? 0.5 : 1} />
       </svg>
       <div className="mt-4 space-y-2 text-xs">
         <label className="flex items-center gap-3">

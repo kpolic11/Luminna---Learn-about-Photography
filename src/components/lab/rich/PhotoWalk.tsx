@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, Eye, RotateCcw } from 'lucide-react';
 import type { Ann, AnnColor, Photo, PhotoWalk as Walk } from './types';
 import { useRichStrings } from './strings';
 
-const COL: Record<AnnColor, string> = { y: '#fbbf24', g: '#4ade80', r: '#f87171', b: '#60a5fa', w: '#f5f5f4' };
+const COL: Record<AnnColor, string> = { y: '#e0b062', g: '#8fb59a', r: '#c96a5e', b: '#8ea4c0', w: '#f5f5f4' };
 
 export const photoUrl = (p: Photo, w = 1400) =>
   p.src.includes('images.unsplash.com') ? `${p.src}?auto=format&fit=crop&q=78&w=${w}` : p.src;

@@ -64,9 +64,9 @@ const Cyclist: React.FC<{ x: number; o?: number }> = ({ x, o = 1 }) => (
   <g transform={`translate(${x} 0)`} opacity={o}>
     <circle cx={-34} cy={182} r={22} fill="none" stroke="#f5f5f4" strokeWidth={5} />
     <circle cx={34} cy={182} r={22} fill="none" stroke="#f5f5f4" strokeWidth={5} />
-    <path d="M-34 182 L-6 140 L22 140 L34 182 M-6 140 L6 182 L-34 182" stroke="#fbbf24" strokeWidth={5} fill="none" />
-    <path d="M6 100 L-2 140 M6 100 L22 128" stroke="#f87171" strokeWidth={8} strokeLinecap="round" />
-    <circle cx={10} cy={86} r={11} fill="#fbbf24" />
+    <path d="M-34 182 L-6 140 L22 140 L34 182 M-6 140 L6 182 L-34 182" stroke="#e0b062" strokeWidth={5} fill="none" />
+    <path d="M6 100 L-2 140 M6 100 L22 128" stroke="#c96a5e" strokeWidth={8} strokeLinecap="round" />
+    <circle cx={10} cy={86} r={11} fill="#e0b062" />
   </g>
 );
 const ShutterPlay: React.FC<{ p: Extract<Play, { kind: 'shutter' }> }> = ({ p }) => {
@@ -80,16 +80,16 @@ const ShutterPlay: React.FC<{ p: Extract<Play, { kind: 'shutter' }> }> = ({ p })
   const shakePx = shake ? Math.min(14, 2 + Math.log2(t * 60) * 3) : 0;
   return (
     <Frame title={p.title} intro={p.intro}>
-      <svg viewBox="0 0 800 260" className="w-full rounded-xl bg-[#3e6f9a]">
+      <svg viewBox="0 0 800 260" className="w-full rounded-xl bg-[#4f6a86]">
         <rect x="0" y="205" width="800" height="55" fill="#4b4540" />
         {[90, 230, 520, 690].map((x, k) => (
           <g key={k} opacity={shake ? 0.55 : 1}>
             <rect x={x - 5} y={120} width={10} height={85} fill="#6b4a2f" />
-            <circle cx={x} cy={105} r={36} fill="#5a8f3e" />
+            <circle cx={x} cy={105} r={36} fill="#7f9a6a" />
             {shake && (
               <g transform={`translate(${shakePx} ${shakePx / 2})`} opacity={0.6}>
                 <rect x={x - 5} y={120} width={10} height={85} fill="#6b4a2f" />
-                <circle cx={x} cy={105} r={36} fill="#5a8f3e" />
+                <circle cx={x} cy={105} r={36} fill="#7f9a6a" />
               </g>
             )}
           </g>
@@ -171,11 +171,11 @@ const AperturePlay: React.FC<{ p: Extract<Play, { kind: 'aperture' }> }> = ({ p 
         <svg viewBox="-100 -100 200 200" className="w-40 h-40 mx-auto">
           <circle r="96" fill="#1c1917" stroke="#44403c" strokeWidth="4" />
           <circle r="86" fill="#0c0a09" />
-          <circle r={r} fill="#fde68a" />
+          <circle r={r} fill="#ecd5a6" />
           {blades.map((a, k) => (
             <path key={k} d={`M ${r} 0 L 90 -40 L 90 90 Z`} transform={`rotate(${a})`} fill="#292524" stroke="#57534e" strokeWidth="1.5" opacity={0.92} />
           ))}
-          <text y="-72" textAnchor="middle" fontSize="18" fontWeight="800" fill="#fbbf24">f/{N}</text>
+          <text y="-72" textAnchor="middle" fontSize="18" fontWeight="800" fill="#e0b062">f/{N}</text>
         </svg>
         <svg viewBox="0 0 400 240" className="w-full rounded-xl">
           <defs>
@@ -184,12 +184,12 @@ const AperturePlay: React.FC<{ p: Extract<Play, { kind: 'aperture' }> }> = ({ p 
             </filter>
           </defs>
           <g filter="url(#apblur)">
-            <rect width="400" height="240" fill="#3e6f9a" />
+            <rect width="400" height="240" fill="#4f6a86" />
             <path d="M0 170 Q120 120 400 160 L400 240 L0 240 Z" fill="#4c7d3a" />
             {[40, 110, 300, 360].map((x, k) => (
               <g key={k}>
                 <rect x={x - 4} y={110} width={8} height={60} fill="#6b4a2f" />
-                <circle cx={x} cy={100} r={26} fill="#5a8f3e" />
+                <circle cx={x} cy={100} r={26} fill="#7f9a6a" />
               </g>
             ))}
             {[60, 150, 250, 330].map((x, k) => (
