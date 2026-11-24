@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Camera, Volume2, BookOpen, GraduationCap, Library, Clock, Sliders, HelpCircle, Menu, X, Search } from 'lucide-react';
+import { Volume2, BookOpen, GraduationCap, Library, Clock, Sliders, HelpCircle, Menu, X, Search } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from '../theme/ThemeToggle';
@@ -19,8 +19,8 @@ export const Navbar: React.FC<NavbarProps> = ({ page, canListen = false, onPlayT
   useEffect(() => setMenuOpen(false), [page]);
 
   const items: { id: PageId; label: string; icon: React.FC<{ className?: string }> }[] = [
-    { id: 'history', label: ui.site.history, icon: BookOpen },
     { id: 'school', label: ui.site.school, icon: GraduationCap },
+    { id: 'history', label: ui.site.history, icon: BookOpen },
     { id: 'encyclopedia', label: ui.site.encyclopedia, icon: Library },
     { id: 'timelines', label: ui.site.timelines, icon: Clock },
     { id: 'tools', label: ui.site.tools, icon: Sliders },
@@ -29,26 +29,23 @@ export const Navbar: React.FC<NavbarProps> = ({ page, canListen = false, onPlayT
 
   const linkClass = (active: boolean) =>
     `px-3 py-2 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap ${
-      active ? 'bg-amber-500/15 text-amber-300 font-semibold' : 'text-stone-400 hover:text-stone-100 hover:bg-stone-900'
+      active ? 'text-stone-100 font-semibold shadow-[inset_0_-2px_0_var(--color-amber-500)] rounded-none' : 'text-stone-400 hover:text-stone-100'
     }`;
 
   return (
     <header className="sticky top-0 z-40 bg-stone-950/90 backdrop-blur-md border-b border-stone-800">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-        <a href="#/" className="flex items-center gap-2.5 group shrink-0" aria-label={ui.site.home}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center text-stone-950 shadow-md group-hover:scale-105 transition-transform">
-            <Camera className="w-5 h-5" />
-          </div>
-          <div className="hidden sm:block">
-            <span className="font-display font-extrabold text-base md:text-lg tracking-wider text-stone-100 block leading-tight">LUMINA</span>
-            <span className="text-[10px] text-stone-400 block tracking-tight">{ui.brandTagline}</span>
-          </div>
+        <a href="#/" className="flex items-baseline gap-2.5 group shrink-0" aria-label={ui.site.home}>
+          <span className="font-display font-bold text-xl tracking-[-0.03em] text-stone-100 flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" aria-hidden="true" />
+            Lumina
+          </span>
+          <span className="hidden sm:block text-xs text-stone-400">{ui.brandTagline}</span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-0.5 text-sm font-medium">
           {items.map(({ id, label, icon: Icon }) => (
             <a key={id} href={href(id)} className={linkClass(page === id)} aria-current={page === id ? 'page' : undefined}>
-              <Icon className="w-4 h-4" />
               {label}
             </a>
           ))}

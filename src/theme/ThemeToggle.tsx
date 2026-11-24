@@ -12,7 +12,7 @@ function readTheme(): Theme {
   } catch {
     /* storage may be blocked */
   }
-  return 'dark';
+  return 'light';
 }
 
 /** Applies the stored theme as early as possible (called from main.tsx). */

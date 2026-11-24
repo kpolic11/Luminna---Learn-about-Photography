@@ -181,7 +181,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
   };
 
   return (
-    <div className="bg-stone-900 border border-stone-800 rounded-3xl p-5 md:p-8 shadow-2xl">
+    <div className="pt-2">
       <div className="pb-5 border-b border-stone-800 max-w-3xl">
         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">
           <FlaskConical className="w-3.5 h-3.5" />
@@ -355,7 +355,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
         <article id="lab-lesson" className="scroll-mt-28 min-w-0">
           <p className="text-xs font-mono text-amber-400">{L.lessonOf(idx + 1, lessons.length)}</p>
           <h4 className="text-xl md:text-2xl font-display font-bold text-stone-100 mt-1">{lesson.title}</h4>
-          <p className="text-sm italic font-serif-reading text-amber-300/90 mt-1">{lesson.tagline}</p>
+          <p className="text-base text-stone-400 mt-1">{lesson.tagline}</p>
 
           {idx === 0 && <ModuleRecall items={recallItems} />}
           <LessonPlayer

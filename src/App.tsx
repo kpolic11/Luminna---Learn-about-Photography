@@ -125,12 +125,12 @@ function AppInner() {
       </main>
 
       <footer className="border-t border-stone-800 bg-stone-950 py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto mb-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="hidden">
             <Heart className="w-6 h-6 text-amber-400" />
           </div>
           <p className="text-xl sm:text-2xl font-display font-bold text-stone-100">{ui.footer.quote}</p>
-          <p className="mt-4 text-sm sm:text-base font-serif-reading italic text-stone-400 leading-relaxed max-w-2xl mx-auto">{ui.footer.epilogue}</p>
+          <p className="mt-4 text-sm sm:text-base text-stone-400 leading-relaxed max-w-2xl">{ui.footer.epilogue}</p>
           <div className="mt-8 pt-6 border-t border-stone-900 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
             <span>{ui.footer.brand}</span>
             <a href={href('glossary')} className="hover:text-amber-400 underline-offset-4 hover:underline">

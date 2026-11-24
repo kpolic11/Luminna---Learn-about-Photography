@@ -1,16 +1,39 @@
 @import "tailwindcss";
 @import "./theme.css";
+@import "@fontsource-variable/commissioner/full.css";
 
 @layer base {
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Commissioner Variable', 'Commissioner', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'ss01' 0;
+    -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, .font-display {
-    font-family: 'Cinzel', serif;
+    font-family: 'Commissioner Variable', 'Commissioner', system-ui, sans-serif;
+    font-variation-settings: 'FLAR' 30;
+    letter-spacing: -0.02em;
   }
+  /* Reading text: same family, a touch larger rhythm (no serif, no Times) */
   .font-serif-reading {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: 'Commissioner Variable', 'Commissioner', system-ui, sans-serif;
+    letter-spacing: 0.002em;
   }
+}
+
+/* «Archive label» style for counters, captions and metadata (beats the utility) */
+.font-mono {
+  font-family: 'Commissioner Variable', 'Commissioner', system-ui, sans-serif !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Calmer, more editorial corners */
+@theme {
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.625rem;
+  --radius-3xl: 0.875rem;
 }
 
 /* Custom scrollbars */
