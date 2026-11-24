@@ -31,6 +31,8 @@
 
 /* Calmer, more editorial corners */
 @theme {
+  /* Second accent: rust, for the archive / history side (dark-theme value) */
+  --color-rust: oklch(74% 0.1 50);
   --radius-xl: 0.5rem;
   --radius-2xl: 0.625rem;
   --radius-3xl: 0.875rem;

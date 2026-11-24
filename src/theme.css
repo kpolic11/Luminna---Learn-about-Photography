@@ -266,7 +266,8 @@ html.light .keep-dark {
   --color-fuchsia-900: oklch(40.1% 0.17 325.612);
   --color-fuchsia-950: oklch(29.3% 0.136 325.661);
 }
-html.light .keep-dark { color: var(--color-stone-100); }
+html.light .keep-dark { color: var(--color-stone-100); --color-rust: oklch(74% 0.1 50); }
+html.light { --color-rust: oklch(56% 0.12 45); }
 /* Text on solid accent buttons stays dark in both themes */
 html.light .bg-emerald-500, html.light .bg-cyan-500 { color: #1c1917; }
 /* Accent buttons: ink with paper text in day, paper with ink text at night */

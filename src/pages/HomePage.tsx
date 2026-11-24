@@ -93,8 +93,8 @@ const COPY = {
 
 const FRAME_IMG = [MEDIA.leGras, MEDIA.boulevardDuTemple, MEDIA.muybridgeGallop, MEDIA.kodakAd1888, MEDIA.adamsTetons];
 
-const Label: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-400">{children}</p>
+const Label: React.FC<{ children: React.ReactNode; archive?: boolean }> = ({ children, archive }) => (
+  <p className={`text-[11px] font-semibold uppercase tracking-[0.16em] ${archive ? 'text-rust' : 'text-amber-400'}`}>{children}</p>
 );
 
 function learnedCount(): number {
@@ -151,7 +151,7 @@ export const HomePage: React.FC = () => {
             <img src={MEDIA.leGras.url} alt={C.plateTitle} className="w-full aspect-[4/3] object-cover" />
           </div>
           <figcaption className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 text-sm">
-            <span className="font-mono text-amber-400 text-xs pt-0.5">{C.plate}</span>
+            <span className="font-mono text-rust text-xs pt-0.5">{C.plate}</span>
             <div>
               <p className="font-semibold text-stone-100">{C.plateTitle}</p>
               <p className="text-stone-400">{C.plateBy}</p>
@@ -165,7 +165,7 @@ export const HomePage: React.FC = () => {
       <section className="pt-14 pb-14 border-b border-stone-800">
         <div className="grid lg:grid-cols-12 gap-6 items-end">
           <div className="lg:col-span-7">
-            <Label>{C.sheetLabel}</Label>
+            <Label archive>{C.sheetLabel}</Label>
             <h2 className="mt-3 text-3xl sm:text-4xl font-display font-bold text-stone-100">{C.sheetTitle}</h2>
           </div>
           <p className="lg:col-span-5 text-stone-400 leading-relaxed">{C.sheetSub}</p>
@@ -175,7 +175,7 @@ export const HomePage: React.FC = () => {
             {C.frames.map(([year, moment, lesson, id], i) => (
               <li key={id}>
                 <a href={href('school', 'exposure', id)} className="group block h-full bg-stone-900 hover:bg-stone-800 transition-colors">
-                  <div className="flex items-center justify-between px-2 py-1 text-[10px] font-mono text-amber-400/90">
+                  <div className="flex items-center justify-between px-2 py-1 text-[10px] font-mono text-rust">
                     <span>{String(i + 1).padStart(2, '0')}A</span>
                     <span>{year}</span>
                   </div>
@@ -183,7 +183,7 @@ export const HomePage: React.FC = () => {
                   <div className="p-3">
                     <p className="text-sm font-semibold text-stone-100 leading-snug">{moment}</p>
                     <p className="mt-3 text-xs text-stone-400">{C.lesson}</p>
-                    <p className="text-sm text-amber-300 font-medium flex items-center gap-1">
+                    <p className="text-sm text-rust font-medium flex items-center gap-1">
                       {lesson}
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </p>
@@ -227,7 +227,7 @@ export const HomePage: React.FC = () => {
       <section className="pt-14">
         <div className="grid lg:grid-cols-12 gap-6 items-end">
           <div className="lg:col-span-7">
-            <Label>{C.archiveLabel}</Label>
+            <Label archive>{C.archiveLabel}</Label>
             <h2 className="mt-3 text-3xl sm:text-4xl font-display font-bold text-stone-100">{C.archiveTitle}</h2>
           </div>
           <p className="lg:col-span-5 text-stone-400 leading-relaxed">{C.archiveSub}</p>
@@ -235,10 +235,10 @@ export const HomePage: React.FC = () => {
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-stone-800 border border-stone-800">
           {C.archive.map(([id, title, desc], i) => (
             <a key={id} href={href(id as 'history')} className="group bg-stone-950 hover:bg-stone-900 p-5 flex flex-col min-h-[150px]">
-              <span className="font-mono text-[10px] text-stone-500">
+              <span className="font-mono text-[10px] text-rust">
                 {['A', 'B', 'C', 'D'][i]} · {String(i + 1).padStart(3, '0')}
               </span>
-              <span className="mt-3 text-lg font-semibold text-stone-100 group-hover:text-amber-300">{title}</span>
+              <span className="mt-3 text-lg font-semibold text-stone-100 group-hover:text-rust">{title}</span>
               <span className="mt-1 text-sm text-stone-400 leading-relaxed flex-1">{desc}</span>
               <ArrowRight className="mt-3 w-4 h-4 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-transform" />
             </a>
