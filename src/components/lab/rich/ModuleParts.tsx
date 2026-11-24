@@ -15,8 +15,8 @@ export const ModuleRecall: React.FC<{ items: [string, string][] }> = ({ items })
   const [open, setOpen] = useState<Record<number, boolean>>({});
   if (items.length === 0) return null;
   return (
-    <section className="mt-4 rounded-2xl bg-violet-500/10 border border-violet-500/30 p-4">
-      <p className="text-sm font-bold text-violet-200 flex items-center gap-1.5">
+    <section className="mt-5 border-y border-stone-800 py-4">
+      <p className="text-sm font-bold text-stone-100 flex items-center gap-1.5">
         <RotateCw className="w-4 h-4" />
         {T.recallTitle}
       </p>
@@ -26,10 +26,10 @@ export const ModuleRecall: React.FC<{ items: [string, string][] }> = ({ items })
           <button
             key={i}
             onClick={() => setOpen((o) => ({ ...o, [i]: !o[i] }))}
-            className={`text-left rounded-xl border p-3 min-h-[92px] transition-colors ${open[i] ? 'bg-emerald-500/10 border-emerald-500/40' : 'bg-stone-950/70 border-stone-800 hover:border-violet-400/50'}`}
+            className={`text-left rounded-xl border p-3 min-h-[92px] transition-colors ${open[i] ? 'bg-stone-900 border-stone-500' : 'border-stone-800 hover:border-stone-500'}`}
           >
             <p className="text-sm font-semibold text-stone-100">{q}</p>
-            {open[i] ? <p className="text-sm text-emerald-200 mt-1.5">{a}</p> : <p className="text-[11px] text-violet-300 mt-1.5">{T.reveal} →</p>}
+            {open[i] ? <p className="text-sm text-stone-200 mt-1.5">{a}</p> : <p className="text-[11px] text-amber-400 mt-1.5">{T.reveal} →</p>}
           </button>
         ))}
       </div>
@@ -61,7 +61,7 @@ export const ModuleEnd: React.FC<{ moduleId: string; lessons: Lesson[]; missions
       return n;
     });
   return (
-    <section className="mt-8 rounded-3xl border border-amber-500/30 bg-gradient-to-b from-amber-500/10 to-transparent p-4 md:p-5 space-y-5">
+    <section className="mt-8 border-t-2 border-stone-100 pt-6 space-y-8">
       <p className="text-xs font-mono text-amber-400 flex items-center gap-1.5">
         <Flag className="w-3.5 h-3.5" />
         {T.moduleEnd}
@@ -93,9 +93,9 @@ export const ModuleEnd: React.FC<{ moduleId: string; lessons: Lesson[]; missions
                 <button
                   key={k}
                   onClick={() => toggle(k)}
-                  className={`text-left rounded-xl border p-3 flex gap-2 ${done[k] ? 'bg-emerald-500/10 border-emerald-500/40' : 'bg-stone-950/70 border-stone-800 hover:border-emerald-500/40'}`}
+                  className={`text-left rounded-xl border p-3 flex gap-2 ${done[k] ? 'bg-stone-900 border-stone-500' : 'border-stone-800 hover:border-stone-500'}`}
                 >
-                  {done[k] ? <CheckSquare className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" /> : <Square className="w-4 h-4 text-stone-500 shrink-0 mt-0.5" />}
+                  {done[k] ? <CheckSquare className="w-4 h-4 text-stone-200 shrink-0 mt-0.5" /> : <Square className="w-4 h-4 text-stone-500 shrink-0 mt-0.5" />}
                   <span>
                     <span className="block text-sm font-semibold text-stone-100">{t}</span>
                     <span className="block text-sm text-stone-300">{d}</span>

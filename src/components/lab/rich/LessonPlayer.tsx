@@ -26,13 +26,14 @@ interface Screen {
   node: React.ReactNode;
 }
 
+/** A quiet note: a thin rule on the left and a small label, no coloured box. */
 const Box: React.FC<{ tone: string; icon: React.ReactNode; label: string; children: React.ReactNode }> = ({ tone, icon, label, children }) => (
-  <div className={`rounded-2xl border p-4 ${tone}`}>
-    <p className="text-xs font-semibold flex items-center gap-1.5 mb-1">
+  <div className={`border-l-2 pl-4 py-1 ${tone}`}>
+    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] flex items-center gap-1.5 mb-1">
       {icon}
       {label}
     </p>
-    <div className="text-sm md:text-base text-stone-200 leading-relaxed">{children}</div>
+    <div className="text-base text-stone-200 leading-relaxed">{children}</div>
   </div>
 );
 
@@ -74,31 +75,31 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
       node: (
         <div className="space-y-3">
           {lesson.quick && (
-            <Box tone="bg-stone-950 border-amber-500/40 text-amber-400" icon={<Zap className="w-3.5 h-3.5" />} label={S.quick}>
+            <Box tone="border-amber-400 text-amber-400" icon={<Zap className="w-3.5 h-3.5" />} label={S.quick}>
               {lesson.quick}
             </Box>
           )}
           {lesson.challenge && (
-            <Box tone="bg-emerald-500/10 border-emerald-500/40 text-emerald-400" icon={<Timer className="w-3.5 h-3.5" />} label={S.challenge}>
+            <Box tone="border-stone-600 text-stone-400" icon={<Timer className="w-3.5 h-3.5" />} label={S.challenge}>
               {lesson.challenge}
             </Box>
           )}
-          <div className="rounded-2xl bg-stone-950/60 border border-stone-800 p-4">
-            <p className="text-xs font-semibold text-stone-400 mb-2">{T.intro}</p>
+          <div className="pt-2">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-500 mb-2">{T.intro}</p>
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="px-2 py-1 rounded-md bg-stone-800 text-stone-200">📖 {lesson.body.length}</span>
+              <span className="px-2.5 py-1 rounded-full border border-stone-700 text-stone-300">📖 {lesson.body.length}</span>
               {walks.length > 0 && (
-                <span className="px-2 py-1 rounded-md bg-amber-500/15 text-amber-300 inline-flex items-center gap-1">
+                <span className="px-2.5 py-1 rounded-full border border-stone-700 text-stone-300 inline-flex items-center gap-1">
                   <ImageIcon className="w-3 h-3" /> {walks.length} · {T.readIt}
                 </span>
               )}
               {(plays.length > 0 || Widget) && (
-                <span className="px-2 py-1 rounded-md bg-amber-500/15 text-amber-300 inline-flex items-center gap-1">
+                <span className="px-2.5 py-1 rounded-full border border-stone-700 text-stone-300 inline-flex items-center gap-1">
                   <SlidersHorizontal className="w-3 h-3" /> {plays.length + (Widget ? 1 : 0)} · {T.tryHere}
                 </span>
               )}
               {(tests.length > 0 || (lesson.check?.length ?? 0) > 0) && (
-                <span className="px-2 py-1 rounded-md bg-sky-500/15 text-sky-300 inline-flex items-center gap-1">
+                <span className="px-2.5 py-1 rounded-full border border-stone-700 text-stone-300 inline-flex items-center gap-1">
                   <ClipboardCheck className="w-3 h-3" /> {tests.length + (lesson.check?.length ?? 0)} · {T.test}
                 </span>
               )}
@@ -147,7 +148,7 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
             {lesson.bullets && lesson.bullets.length > 0 && (
               <ul className="space-y-2 text-base text-stone-200">
                 {lesson.bullets.map((b, i) => (
-                  <li key={i} className="flex gap-2 rounded-xl bg-stone-950/60 border border-stone-800 px-3 py-2">
+                  <li key={i} className="flex gap-3 border-b border-stone-800 py-2.5">
                     <span className="text-amber-400">•</span>
                     <span>{b}</span>
                   </li>
@@ -155,8 +156,8 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
               </ul>
             )}
             {lesson.mistakes && lesson.mistakes.length > 0 && (
-              <div className="rounded-2xl bg-rose-500/10 border border-rose-500/30 p-4">
-                <p className="text-xs font-semibold text-rose-300 mb-1.5">{S.mistakes}</p>
+              <div className="border-l-2 border-rose-400 pl-4 py-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-rose-400 mb-1.5">{S.mistakes}</p>
                 <ul className="space-y-1.5 text-sm md:text-base text-stone-200">
                   {lesson.mistakes.map((m, i) => (
                     <li key={i} className="flex gap-2">
@@ -176,7 +177,7 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
         key: 'phone',
         kind: 'phone',
         node: (
-          <Box tone="bg-sky-500/10 border-sky-500/30 text-sky-300" icon={<Smartphone className="w-3.5 h-3.5" />} label={S.phone}>
+          <Box tone="border-stone-600 text-stone-400" icon={<Smartphone className="w-3.5 h-3.5" />} label={S.phone}>
             {capFirst(phone.replace(/^(Με το κινητό|With a phone|On a phone|On your phone):\s*/, ''))}
           </Box>
         ),
@@ -187,10 +188,10 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
       kind: 'key',
       node: (
         <div className="space-y-3">
-          <Box tone="bg-amber-500/10 border-amber-500/40 text-amber-400" icon={<Lightbulb className="w-3.5 h-3.5" />} label={L.keyIdea}>
+          <Box tone="border-amber-400 text-amber-400" icon={<Lightbulb className="w-3.5 h-3.5" />} label={L.keyIdea}>
             <span className="text-lg md:text-xl font-semibold text-stone-100">{lesson.keyIdea}</span>
           </Box>
-          <Box tone="bg-emerald-500/10 border-emerald-500/30 text-emerald-400" icon={<Target className="w-3.5 h-3.5" />} label={L.tryIt}>
+          <Box tone="border-stone-600 text-stone-400" icon={<Target className="w-3.5 h-3.5" />} label={L.tryIt}>
             {lesson.tryIt}
           </Box>
           {extras}
@@ -211,14 +212,14 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
     top.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
   const KIND_COL: Record<Screen['kind'], string> = {
-    intro: 'bg-stone-400',
-    read: 'bg-stone-300',
-    photo: 'bg-amber-400',
-    try: 'bg-orange-400',
-    rules: 'bg-stone-400',
-    phone: 'bg-sky-400',
-    key: 'bg-emerald-400',
-    test: 'bg-sky-500',
+    intro: 'bg-stone-500',
+    read: 'bg-stone-500',
+    photo: 'bg-stone-500',
+    try: 'bg-stone-500',
+    rules: 'bg-stone-500',
+    phone: 'bg-stone-500',
+    key: 'bg-stone-500',
+    test: 'bg-stone-500',
   };
 
   const toggle = (
@@ -250,7 +251,7 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
             aria-selected={i === cur}
             aria-label={`${i + 1}`}
             onClick={() => go(i)}
-            className={`h-2 flex-1 rounded-full transition-all ${i === cur ? KIND_COL[s.kind] + ' ring-2 ring-amber-300/60' : i < cur ? KIND_COL[s.kind] + ' opacity-70' : 'bg-stone-800 hover:bg-stone-700'}`}
+            className={`h-1 flex-1 rounded-full transition-all ${i === cur ? 'bg-amber-400' : i < cur ? KIND_COL[s.kind] : 'bg-stone-800 hover:bg-stone-700'}`}
           />
         ))}
       </div>
@@ -265,13 +266,13 @@ export const LessonPlayer: React.FC<Props> = ({ lesson, Widget, extras }) => {
         <button
           onClick={() => go(cur - 1)}
           disabled={cur === 0}
-          className="px-3 py-2 rounded-xl text-sm font-semibold bg-stone-800 text-stone-300 hover:bg-stone-700 disabled:opacity-30 inline-flex items-center gap-1"
+          className="px-3 py-2 rounded-xl text-sm font-medium text-stone-400 hover:text-stone-100 disabled:opacity-30 inline-flex items-center gap-1"
         >
           <ChevronLeft className="w-4 h-4" />
           {T.prevScreen}
         </button>
         {cur < n - 1 && (
-          <button onClick={() => go(cur + 1)} className="px-4 py-2 rounded-xl text-sm font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 inline-flex items-center gap-1">
+          <button onClick={() => go(cur + 1)} className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-amber-500 hover:bg-amber-600 inline-flex items-center gap-1">
             {T.nextScreen}
             <ChevronRight className="w-4 h-4" />
           </button>

@@ -81,8 +81,8 @@ export const PlacementTest: React.FC<Props> = ({ levelName, moduleTitle, onGoLev
   };
 
   return (
-    <details className="mt-6 rounded-2xl bg-sky-500/10 border border-sky-500/30 p-4 group" data-placement>
-      <summary className="cursor-pointer font-semibold text-sky-300 flex items-center gap-2">
+    <details className="mt-2 border border-stone-800 rounded-xl p-4 group" data-placement>
+      <summary className="cursor-pointer font-semibold text-stone-100 flex items-center gap-2">
         <Compass className="w-4 h-4 shrink-0" />
         {D.title}
       </summary>
@@ -90,14 +90,14 @@ export const PlacementTest: React.FC<Props> = ({ levelName, moduleTitle, onGoLev
         {step < 0 && (
           <div>
             <p className="text-sm text-stone-300">{D.intro}</p>
-            <button onClick={reset} className="mt-3 px-3 py-2 rounded-xl text-xs font-bold bg-sky-500 text-stone-950 hover:bg-sky-400">
+            <button onClick={reset} className="mt-3 px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600">
               {D.start}
             </button>
           </div>
         )}
         {step >= 0 && !done && (
           <div>
-            <p className="text-[11px] font-mono text-sky-300">{D.of(step + 1, D.qs.length)}</p>
+            <p className="text-[11px] font-mono text-amber-400">{D.of(step + 1, D.qs.length)}</p>
             <p className="font-display font-bold text-stone-100 mt-1">{D.qs[step].q}</p>
             <div className="mt-3 grid gap-2">
               {D.qs[step].a.map((opt, i) => (
@@ -107,14 +107,14 @@ export const PlacementTest: React.FC<Props> = ({ levelName, moduleTitle, onGoLev
                     setAnswers((p) => [...p, i]);
                     setStep((s) => s + 1);
                   }}
-                  className="text-left px-3 py-2 rounded-xl text-sm bg-stone-950 border border-stone-800 text-stone-200 hover:border-sky-500/60"
+                  className="text-left px-3 py-2 rounded-xl text-sm bg-stone-950 border border-stone-800 text-stone-200 hover:border-stone-500"
                 >
                   {opt}
                 </button>
               ))}
             </div>
             <div className="h-1 rounded-full bg-stone-800 overflow-hidden mt-3">
-              <div className="h-full bg-sky-500" style={{ width: `${(step / D.qs.length) * 100}%` }} />
+              <div className="h-full bg-amber-400" style={{ width: `${(step / D.qs.length) * 100}%` }} />
             </div>
           </div>
         )}
@@ -123,7 +123,7 @@ export const PlacementTest: React.FC<Props> = ({ levelName, moduleTitle, onGoLev
             <p className="font-display font-bold text-lg text-stone-100">{D.result(level, levelName(level))}</p>
             <p className="text-sm text-stone-400 mt-1">{D.why}</p>
             <div className="flex flex-wrap gap-2 mt-3">
-              <button onClick={() => onGoLevel(level)} className="px-3 py-2 rounded-xl text-xs font-bold bg-sky-500 text-stone-950 hover:bg-sky-400 inline-flex items-center gap-1">
+              <button onClick={() => onGoLevel(level)} className="px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 inline-flex items-center gap-1">
                 {D.go}
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -135,7 +135,7 @@ export const PlacementTest: React.FC<Props> = ({ levelName, moduleTitle, onGoLev
             {weak && moduleTitle(weak) && (
               <p className="text-sm text-stone-300 mt-3">
                 {D.weakest}{' '}
-                <button onClick={() => onGoModule(weak)} className="underline decoration-sky-500/60 hover:text-sky-300">
+                <button onClick={() => onGoModule(weak)} className="underline decoration-stone-600 hover:text-amber-400">
                   {moduleTitle(weak)}
                 </button>
               </p>

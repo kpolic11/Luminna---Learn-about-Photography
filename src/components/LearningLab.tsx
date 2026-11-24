@@ -64,10 +64,10 @@ const ICONS: Record<string, React.FC<{ className?: string }>> = {
 };
 
 const KIND_STYLE: Record<ModuleKind, { on: string; off: string; dot: string }> = {
-  tech: { on: 'bg-amber-500 text-stone-950 border-amber-500', off: 'border-amber-500/30 hover:border-amber-500/70', dot: 'bg-amber-400' },
-  eye: { on: 'bg-purple-500 text-stone-950 border-purple-500', off: 'border-purple-500/30 hover:border-purple-500/70', dot: 'bg-purple-400' },
-  practice: { on: 'bg-emerald-500 text-stone-950 border-emerald-500', off: 'border-emerald-500/30 hover:border-emerald-500/70', dot: 'bg-emerald-400' },
-  pro: { on: 'bg-sky-500 text-stone-950 border-sky-500', off: 'border-sky-500/30 hover:border-sky-500/70', dot: 'bg-sky-400' },
+  tech: { on: 'bg-stone-100 text-stone-950 border-stone-100', off: 'border-stone-700 hover:border-stone-400', dot: 'bg-amber-400' },
+  eye: { on: 'bg-stone-100 text-stone-950 border-stone-100', off: 'border-stone-700 hover:border-stone-400', dot: 'bg-purple-400' },
+  practice: { on: 'bg-stone-100 text-stone-950 border-stone-100', off: 'border-stone-700 hover:border-stone-400', dot: 'bg-emerald-400' },
+  pro: { on: 'bg-stone-100 text-stone-950 border-stone-100', off: 'border-stone-700 hover:border-stone-400', dot: 'bg-sky-400' },
 };
 
 interface LearningLabProps {
@@ -182,27 +182,6 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
 
   return (
     <div className="pt-2">
-      <div className="pb-5 border-b border-stone-800 max-w-3xl">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">
-          <FlaskConical className="w-3.5 h-3.5" />
-          {L.badge}
-        </span>
-        <h3 className="text-xl md:text-3xl font-display font-bold text-stone-100 mt-2">{L.title}</h3>
-        <p className="text-sm text-stone-400 mt-1 leading-relaxed">{L.desc}</p>
-        <a href={href('glossary')} className="mt-2 inline-flex items-center gap-1.5 text-xs text-amber-400 hover:underline">
-          <BookOpen className="w-3.5 h-3.5" />
-          {ui.site.glossary}
-        </a>
-        <div className="flex flex-wrap gap-3 mt-3 text-[11px] text-stone-400">
-          {(Object.keys(KIND_STYLE) as ModuleKind[]).map((k) => (
-            <span key={k} className="inline-flex items-center gap-1.5">
-              <span className={`w-2 h-2 rounded-full ${KIND_STYLE[k].dot}`} />
-              {S.kinds[k]}
-            </span>
-          ))}
-        </div>
-      </div>
-
       <PlacementTest
         levelName={(lv) => content.levels[lv].name}
         moduleTitle={(id) => modById[id]?.title}
@@ -213,36 +192,35 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
         onGoModule={(id) => modById[id] && openModule(id, true)}
       />
 
-      {/* Levels */}
-      <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {/* Levels: tabs */}
+      <div className="mt-8 border-b border-stone-800 flex overflow-x-auto" role="tablist">
         {([1, 2, 3, 4] as const).map((lv) => {
           const [d, t] = levelCount(lv);
           const active = lv === level;
           return (
             <button
               key={lv}
+              role="tab"
               onClick={() => openLevel(lv)}
+              aria-selected={active}
               aria-pressed={active}
               data-level={lv}
-              className={`text-left rounded-2xl p-4 border transition-colors min-w-0 ${
-                active ? 'bg-stone-950 border-amber-500/70' : 'bg-stone-950/40 border-stone-800 hover:border-stone-600'
+              className={`text-left px-4 pt-2 pb-3 -mb-px border-b-2 transition-colors shrink-0 min-w-[9.5rem] ${
+                active ? 'border-amber-400 text-stone-100' : 'border-transparent text-stone-500 hover:text-stone-200'
               }`}
             >
-              <p className="text-[11px] font-mono text-amber-400">{S.level(lv)}</p>
-              <p className="font-display font-bold text-stone-100 leading-tight mt-0.5">{content.levels[lv].name}</p>
-              <div className="h-1 rounded-full bg-stone-800 overflow-hidden mt-3">
-                <div className="h-full bg-amber-500" style={{ width: `${t ? (d / t) * 100 : 0}%` }} />
-              </div>
-              <p className="text-[11px] text-stone-500 mt-1">{L.learned(d, t)}</p>
+              <span className="block text-[11px] uppercase tracking-[0.14em]">{S.level(lv)}</span>
+              <span className="block font-semibold text-[15px] leading-tight mt-0.5">{content.levels[lv].name}</span>
+              <span className="block text-[11px] text-stone-500 mt-1 tabular-nums">{L.learned(d, t)}</span>
             </button>
           );
         })}
       </div>
-      <p className="mt-3 text-sm text-stone-400 font-serif-reading">{levelText.who}</p>
+      <p className="mt-4 text-sm text-stone-400 max-w-3xl">{levelText.who}</p>
 
       {/* Modules of this level */}
       <div id="lab-modules" className="scroll-mt-28 mt-5">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-500 mb-2">{S.modulesIn}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500 mb-2">{S.modulesIn}</p>
         <div className="flex flex-wrap gap-2">
           {levelMods.map((m) => {
             const Icon = ICONS[m.icon] ?? Circle;
@@ -254,11 +232,11 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
                 data-module={m.id}
                 onClick={() => openModule(m.id)}
                 aria-pressed={on}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors inline-flex items-center gap-1.5 ${
-                  on ? KIND_STYLE[m.kind].on : `bg-stone-950 text-stone-300 ${KIND_STYLE[m.kind].off}`
+                className={`px-3 py-1.5 rounded-full text-[13px] font-medium border transition-colors inline-flex items-center gap-1.5 ${
+                  on ? KIND_STYLE[m.kind].on : `text-stone-300 ${KIND_STYLE[m.kind].off}`
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
+                <span className={`w-1.5 h-1.5 rounded-full ${KIND_STYLE[m.kind].dot}`} aria-hidden="true" />
                 {m.title}
                 <span className="opacity-60 font-normal">· {m.lessons.length}</span>
                 {done && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
@@ -268,15 +246,16 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
         </div>
       </div>
 
-      <div className="mt-4 space-y-3">
-        <p className="text-sm text-stone-300 font-serif-reading">{mod.desc}</p>
+      <div className="mt-10 space-y-3 max-w-3xl">
+        <h3 className="text-2xl sm:text-3xl font-display font-bold text-stone-100">{mod.title}</h3>
+        <p className="text-base text-stone-300">{mod.desc}</p>
         {mod.requires && mod.requires.filter((r) => modById[r]).length > 0 && (
           <p className="text-xs text-stone-400 flex flex-wrap items-center gap-1.5">
             <span>{S.requires}</span>
             {mod.requires
               .filter((r) => modById[r])
               .map((r) => (
-                <button key={r} onClick={() => openModule(r, true)} className="px-2 py-0.5 rounded-md bg-stone-950 border border-stone-800 hover:border-amber-500/50 text-stone-300">
+                <button key={r} onClick={() => openModule(r, true)} className="underline decoration-stone-600 underline-offset-4 hover:decoration-amber-400 text-stone-300">
                   {modById[r].title}
                   {modById[r].lessons.every((l) => learned[l.id]) ? ' ✓' : ''}
                 </button>
@@ -286,8 +265,8 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
         {(mod.checklist || mod.fieldwork) && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
             {mod.checklist && (
-              <details className="rounded-2xl bg-stone-950/60 border border-stone-800 p-4">
-                <summary className="cursor-pointer text-sm font-semibold text-amber-300 flex items-center gap-2">
+              <details className="border-t border-stone-800 pt-3">
+                <summary className="cursor-pointer text-sm font-semibold text-stone-100 flex items-center gap-2">
                   <ListChecks className="w-4 h-4 shrink-0" />
                   {mod.checklist.title}
                 </summary>
@@ -304,8 +283,8 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
               </details>
             )}
             {mod.fieldwork && (
-              <details className="rounded-2xl bg-stone-950/60 border border-stone-800 p-4">
-                <summary className="cursor-pointer text-sm font-semibold text-emerald-300 flex items-center gap-2">
+              <details className="border-t border-stone-800 pt-3">
+                <summary className="cursor-pointer text-sm font-semibold text-stone-100 flex items-center gap-2">
                   <MapPin className="w-4 h-4 shrink-0" />
                   {mod.fieldwork.title}
                 </summary>
@@ -324,27 +303,27 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
         )}
       </div>
 
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
+      <div className="mt-8 pt-8 border-t border-stone-800 grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8 lg:gap-12">
         {/* Lesson list */}
         <aside className="min-w-0">
           <div className="flex items-center justify-between text-xs text-stone-400 mb-2">
             <span>{L.learned(doneCount, lessons.length)}</span>
           </div>
-          <div className="h-1.5 rounded-full bg-stone-800 overflow-hidden mb-3">
-            <div className="h-full bg-amber-500 transition-all" style={{ width: `${(doneCount / lessons.length) * 100}%` }} />
+          <div className="h-0.5 bg-stone-800 overflow-hidden mb-3">
+            <div className="h-full bg-amber-400 transition-all" style={{ width: `${(doneCount / lessons.length) * 100}%` }} />
           </div>
           <ol className="flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 lg:max-h-[640px] lg:overflow-y-auto pr-1">
             {lessons.map((l, i) => (
               <li key={l.id} className="shrink-0 lg:shrink">
                 <button
                   onClick={() => go(i)}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center gap-2 border transition-colors whitespace-nowrap lg:whitespace-normal ${
-                    i === idx ? 'bg-stone-950 border-amber-500/60 text-stone-100' : 'bg-stone-950/40 border-stone-800 text-stone-400 hover:text-stone-200'
+                  className={`w-full text-left px-3 py-2 text-[13px] flex items-center gap-2.5 transition-colors whitespace-nowrap lg:whitespace-normal border-b-2 lg:border-b-0 lg:border-l-2 ${
+                    i === idx ? 'border-amber-400 text-stone-100 font-semibold bg-stone-900' : 'border-transparent text-stone-400 hover:text-stone-100'
                   }`}
                 >
-                  {learned[l.id] ? <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> : <Circle className="w-4 h-4 text-stone-600 shrink-0" />}
-                  <span className="font-mono text-stone-500">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="font-medium">{l.title}</span>
+                  {learned[l.id] ? <CheckCircle2 className="w-3.5 h-3.5 text-stone-300 shrink-0" /> : <Circle className="w-3.5 h-3.5 text-stone-600 shrink-0" />}
+                  <span className="font-mono text-[11px] text-stone-500">{String(i + 1).padStart(2, '0')}</span>
+                  <span>{l.title}</span>
                 </button>
               </li>
             ))}
@@ -354,7 +333,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
         {/* Lesson */}
         <article id="lab-lesson" className="scroll-mt-28 min-w-0">
           <p className="text-xs font-mono text-amber-400">{L.lessonOf(idx + 1, lessons.length)}</p>
-          <h4 className="text-xl md:text-2xl font-display font-bold text-stone-100 mt-1">{lesson.title}</h4>
+          <h4 className="text-2xl md:text-[2rem] leading-tight font-display font-bold text-stone-100 mt-1">{lesson.title}</h4>
           <p className="text-base text-stone-400 mt-1">{lesson.tagline}</p>
 
           {idx === 0 && <ModuleRecall items={recallItems} />}
@@ -380,7 +359,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
             <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer select-none">
               <input
                 type="checkbox"
-                className="w-4 h-4 accent-emerald-500"
+                className="w-4 h-4 accent-stone-700"
                 checked={!!learned[lesson.id]}
                 onChange={() => setLearned((p) => ({ ...p, [lesson.id]: !p[lesson.id] }))}
               />
@@ -388,12 +367,12 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
             </label>
             <div className="flex items-center gap-2">
               {(track === 'exposure' || track === 'metering' || track === 'focus-dof') && onOpenSimulator && (
-                <button onClick={onOpenSimulator} className="px-3 py-2 rounded-xl text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/40 hover:bg-amber-500/25">
+                <button onClick={onOpenSimulator} className="text-sm font-medium text-stone-300 underline decoration-stone-600 underline-offset-4 hover:decoration-amber-400">
                   {L.openSimulator}
                 </button>
               )}
               {(track === 'comp-basics' || track === 'comp-advanced') && onOpenComposition && (
-                <button onClick={onOpenComposition} className="px-3 py-2 rounded-xl text-xs font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/25">
+                <button onClick={onOpenComposition} className="text-sm font-medium text-stone-300 underline decoration-stone-600 underline-offset-4 hover:decoration-amber-400">
                   {L.openComposition}
                 </button>
               )}
@@ -403,7 +382,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
             <button
               onClick={() => go(idx - 1)}
               disabled={idx === 0}
-              className="px-3 py-2 rounded-xl text-xs font-semibold bg-stone-800 text-stone-300 hover:bg-stone-700 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
+              className="px-3 py-2 text-sm font-medium text-stone-400 hover:text-stone-100 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
             >
               <ChevronLeft className="w-4 h-4" />
               {L.prev}
@@ -414,7 +393,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
                   setLearned((p) => ({ ...p, [lesson.id]: true }));
                   go(idx + 1);
                 }}
-                className="px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center gap-1"
+                className="px-4 py-2 rounded-xl text-sm font-semibold border border-stone-600 text-stone-100 hover:border-stone-300 flex items-center gap-1"
               >
                 {L.next}
                 <ChevronRight className="w-4 h-4" />
@@ -425,7 +404,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
                   setLearned((p) => ({ ...p, [lesson.id]: true }));
                   openModule(nextMod.id, true);
                 }}
-                className="px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center gap-1 text-right"
+                className="px-4 py-2 rounded-xl text-sm font-semibold border border-stone-600 text-stone-100 hover:border-stone-300 flex items-center gap-1 text-right"
               >
                 {S.nextModule}: {nextMod.title}
                 <ArrowRight className="w-4 h-4 shrink-0" />
@@ -433,7 +412,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
             ) : (
               <button
                 onClick={() => setLearned((p) => ({ ...p, [lesson.id]: true }))}
-                className="px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center gap-1"
+                className="px-4 py-2 rounded-xl text-sm font-semibold border border-stone-600 text-stone-100 hover:border-stone-300 flex items-center gap-1"
               >
                 {L.done}
               </button>
@@ -444,8 +423,8 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
       </div>
 
       {/* Level project & self-check */}
-      <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="rounded-2xl bg-amber-500/10 border border-amber-500/30 p-5">
+      <div className="mt-14 pt-8 border-t border-stone-800 grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div>
           <p className="text-xs font-semibold text-amber-400 flex items-center gap-1.5">
             <Trophy className="w-4 h-4" />
             {S.project} · {S.level(level)}
@@ -461,8 +440,8 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
             ))}
           </ol>
         </div>
-        <div className="rounded-2xl bg-stone-950/60 border border-stone-800 p-5">
-          <p className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+        <div>
+          <p className="text-xs font-semibold text-amber-400 flex items-center gap-1.5">
             <ListChecks className="w-4 h-4" />
             {S.canDo}
           </p>
@@ -473,7 +452,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
               return (
                 <li key={key}>
                   <label className="flex gap-2 text-sm text-stone-300 cursor-pointer">
-                    <input type="checkbox" className="mt-0.5 w-4 h-4 accent-emerald-500 shrink-0" checked={!!cando[key]} onChange={() => setCando((p) => ({ ...p, [key]: !p[key] }))} />
+                    <input type="checkbox" className="mt-0.5 w-4 h-4 accent-stone-700 shrink-0" checked={!!cando[key]} onChange={() => setCando((p) => ({ ...p, [key]: !p[key] }))} />
                     <span>{c}</span>
                   </label>
                 </li>
