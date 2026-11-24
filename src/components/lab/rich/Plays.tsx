@@ -3,6 +3,7 @@ import { SlidersHorizontal } from 'lucide-react';
 import type { Play } from './types';
 import { Credit, photoUrl } from './PhotoWalk';
 import { useRichStrings } from './strings';
+import { PlasterHead, LampMap } from './PlasterHead';
 
 const Frame: React.FC<{ title: string; intro: string; children: React.ReactNode }> = ({ title, intro, children }) => {
   const T = useRichStrings();
@@ -287,54 +288,37 @@ const CropPlay: React.FC<{ p: Extract<Play, { kind: 'crop' }> }> = ({ p }) => {
   );
 };
 
-/* ───────────── Light: move a lamp around a head; small or large source ───────────── */
+/* ───────────── Light: a plaster head and one lamp ───────────── */
+const AZ = [0, 15, 30, 45, 60, 75, 90, 120, 150, 180];
+const EL = [-30, 0, 15, 30, 45, 60, 75];
 const LightPlay: React.FC<{ p: Extract<Play, { kind: 'light' }> }> = ({ p }) => {
   const T = useRichStrings();
-  const [a, setA] = useState(3); // 0 front … 3 side … 6 back
-  const [size, setSize] = useState(0); // 0 small … 4 large
-  const ang = (a / 6) * Math.PI; // 0 = in front (towards camera), π = behind
-  const lx = Math.sin(ang); // −1 … 1, light comes from the left side of the frame
-  const lz = Math.cos(ang); // 1 = front, −1 = back
-  const blur = 1 + size * 7;
-  const label = a <= 1 ? T.dirFront : a >= 5 ? T.dirBack : T.dirSide;
-  // shadow side: opposite to the light; strength grows when the light goes to the side/back
-  const shadowX = 150 + 60 * lx;
-  const darkness = Math.max(0, Math.min(0.92, 0.25 + 0.6 * (1 - lz) / 2 + (a >= 5 ? 0.3 : 0)));
-  const rim = a >= 4 ? (a - 3) / 3 : 0;
+  const [ai, setAi] = useState(3);
+  const [ei, setEi] = useState(3);
+  const [size, setSize] = useState(0);
+  const az = AZ[ai];
+  const el = EL[ei];
+  const pattern =
+    az >= 120 ? T.patRim : az >= 80 ? T.patSplit : az >= 40 && el >= 15 ? T.patRembrandt : az >= 15 && el >= 0 ? T.patLoop : el >= 30 ? T.patButterfly : T.patFlat;
   return (
     <Frame title={p.title} intro={p.intro}>
-      <div className="grid sm:grid-cols-[1fr_9rem] gap-3 items-center">
-        <svg viewBox="0 0 300 300" className="w-full max-w-[340px] mx-auto rounded-xl bg-stone-800">
-          <defs>
-            <filter id="lp-soft" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation={blur} />
-            </filter>
-            <clipPath id="lp-head">
-              <ellipse cx={150} cy={140} rx={70} ry={92} />
-            </clipPath>
-          </defs>
-          <rect width={300} height={300} fill={a >= 5 ? '#e7dccb' : '#3a3632'} />
-          <ellipse cx={150} cy={140} rx={70} ry={92} fill="#d9b49a" />
-          <path d="M70 300 Q150 220 230 300 Z" fill="#6b4a2f" />
-          <g clipPath="url(#lp-head)">
-            {/* shadow side of the face */}
-            <ellipse cx={shadowX + 70} cy={150} rx={95} ry={130} fill="#000" opacity={darkness} filter="url(#lp-soft)" />
-            {/* nose shadow */}
-            <path d={`M150 120 L${150 + 22 * lx} 170 L150 172 Z`} fill="#000" opacity={a <= 4 ? 0.45 * Math.min(1, Math.abs(lx) + 0.2) : 0} filter="url(#lp-soft)" />
-          </g>
-          {rim > 0 && <ellipse cx={150} cy={140} rx={71} ry={93} fill="none" stroke="#fff5e0" strokeWidth={2 + 3 * rim} opacity={rim} />}
-          <circle cx={132} cy={130} r={5} fill="#2b211b" />
-          <circle cx={168} cy={130} r={5} fill="#2b211b" />
-          <path d="M135 196 Q150 204 165 196" stroke="#8f3030" strokeWidth={3} fill="none" />
-          {/* the lamp, seen from the camera */}
-          <circle cx={150 - 125 * lx} cy={40} r={6 + size * 6} fill="#e0b062" opacity={a >= 5 ? 0.35 : 1} />
-        </svg>
-        <div className="text-xs text-stone-300 space-y-1.5">
-          <p className="font-semibold text-stone-100">{label}</p>
-          <p className="text-stone-400">{size <= 1 ? T.hard : size >= 3 ? T.soft : ''}</p>
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,9.5rem)] gap-3 sm:gap-5 items-start max-w-[560px] mx-auto">
+        <PlasterHead az={az} el={el} size={size} label={pattern} />
+        <div className="space-y-3">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.12em] text-stone-500">{T.topView}</p>
+            <LampMap az={az} size={size} camera={T.camera} />
+          </div>
+          <div className="text-sm space-y-1">
+            <p className="font-semibold text-stone-100">{pattern}</p>
+            <p className="text-xs text-stone-400">{size <= 1 ? T.hard : size >= 3 ? T.soft : ''}</p>
+            {el <= -15 && <p className="text-xs text-stone-400">{T.elevBelow}</p>}
+            {el >= 60 && <p className="text-xs text-stone-400">{T.elevTop}</p>}
+          </div>
         </div>
       </div>
-      <Slider label={T.dirLbl} value={a} max={6} onChange={setA} shown={`${Math.round((a / 6) * 180)}°`} marks={['0°', '90°', '180°']} />
+      <Slider label={T.dirLbl} value={ai} max={AZ.length - 1} onChange={setAi} shown={`${az}°`} marks={['0°', '90°', '180°']} />
+      <Slider label={T.elevLbl} value={ei} max={EL.length - 1} onChange={setEi} shown={`${el > 0 ? '+' : ''}${el}°`} marks={['−30°', '0°', '+75°']} />
       <Slider label={T.sizeLbl} value={size} max={4} onChange={setSize} shown={['XS', 'S', 'M', 'L', 'XL'][size]} />
     </Frame>
   );
