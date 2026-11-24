@@ -12,7 +12,7 @@ const T = {
     noiseSensor: 'Αισθητήρας',
     sensors: { invariant: 'ISO-invariant', variant: 'ISO-variant', dual: 'Dual native ISO' },
     leftLabel: (iso: number) => `ISO ${iso} στην κάμερα`,
-    rightLabel: (st: number) => `ISO 100, +${st} στοπ στην επεξεργασία`,
+    rightLabel: (st: number) => `ISO 100, +${st} stop στην επεξεργασία`,
     noiseShadow: 'Θόρυβος στις σκιές',
     noiseVerdict: {
       same: 'Σχεδόν ίδιο αποτέλεσμα: σε αυτόν τον αισθητήρα το ISO δεν «κερδίζει» σχεδόν τίποτα στις σκιές.',
@@ -38,8 +38,8 @@ const T = {
     invSubject: 'Θέμα',
     invBackground: 'Φόντο',
     invLight: 'Φως',
-    invVsOne: (s: string) => `Σε σχέση με 1 m: ${s} στοπ`,
-    invBgDiff: (s: string) => `Το φόντο είναι ${s} στοπ πιο σκοτεινό από το θέμα`,
+    invVsOne: (s: string) => `Σε σχέση με 1 m: ${s} stop`,
+    invBgDiff: (s: string) => `Το φόντο είναι ${s} stop πιο σκοτεινό από το θέμα`,
     aspTitle: 'Το σχήμα του κάδρου',
     aspPos: 'Θέση κάδρου',
     aspNotes: {

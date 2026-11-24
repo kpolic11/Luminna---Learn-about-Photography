@@ -17,6 +17,9 @@ import { NoiseWidget, DiffractionWidget, InverseSquareWidget, AspectWidget, Colo
 import { QuizReview } from './QuizReview';
 import { PlacementTest } from './lab/PlacementTest';
 import { useNarration } from '../narration';
+import { LessonPlayer } from './lab/rich/LessonPlayer';
+import { ModuleRecall, ModuleEnd, checksToTests } from './lab/rich/ModuleParts';
+import { getRich } from './lab/rich/data';
 
 const STORE = 'lumina.lab.learned';
 const STORE_CANDO = 'lumina.lab.cando';
@@ -142,6 +145,15 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
 
   if (!mod || !lesson) return null;
   const Widget = lesson.widget ? WIDGETS[lesson.widget] : null;
+  const richMod = getRich(lang).modules[mod.id] ?? {};
+  const recallItems: [string, string][] =
+    richMod.recall ??
+    (modById[mod.id].requires ?? [])
+      .flatMap((r) => modById[r]?.lessons ?? [])
+      .flatMap((l) => l.check ?? [])
+      .slice(0, 3)
+      .map((q) => [q.question, q.options[q.correctIndex]] as [string, string]);
+  const finalTests = richMod.final ?? checksToTests(lessons.flatMap((l) => l.check ?? []).slice(0, 10));
   const doneCount = lessons.filter((l) => learned[l.id]).length;
   const levelMods = modules.filter((m) => m.level === level);
   const levelText = content.levels[level];
@@ -345,97 +357,12 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
           <h4 className="text-xl md:text-2xl font-display font-bold text-stone-100 mt-1">{lesson.title}</h4>
           <p className="text-sm italic font-serif-reading text-amber-300/90 mt-1">{lesson.tagline}</p>
 
-          {(lesson.quick || lesson.challenge) && (
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-              {lesson.quick && (
-                <div className="rounded-2xl bg-stone-950 border border-amber-500/40 p-4">
-                  <p className="text-xs font-semibold text-amber-400 flex items-center gap-1.5 mb-1">
-                    <Zap className="w-3.5 h-3.5" />
-                    {S.quick}
-                  </p>
-                  <p className="text-sm text-stone-200 leading-relaxed">{lesson.quick}</p>
-                </div>
-              )}
-              {lesson.challenge && (
-                <div className="rounded-2xl bg-emerald-500/10 border border-emerald-500/40 p-4">
-                  <p className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mb-1">
-                    <Timer className="w-3.5 h-3.5" />
-                    {S.challenge}
-                  </p>
-                  <p className="text-sm text-stone-200 leading-relaxed">{lesson.challenge}</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {HAS_DIAGRAM.has(lesson.id) && (
-            <div className="keep-dark mt-5 rounded-2xl bg-stone-950 border border-stone-800 p-3">
-              <LessonDiagram id={lesson.id} labels={lesson.diagramLabels} />
-            </div>
-          )}
-          {Widget && (
-            <div className="mt-5">
-              <Widget lessonId={lesson.id} />
-            </div>
-          )}
-
-          <div className="mt-5 space-y-3 text-stone-300 text-sm md:text-base leading-relaxed font-serif-reading">
-            {lesson.body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-
-          {lesson.bullets && lesson.bullets.length > 0 && (
-            <ul className="mt-4 space-y-1.5 text-sm text-stone-300">
-              {lesson.bullets.map((b, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className="text-amber-400 mt-0.5">•</span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {lesson.mistakes && lesson.mistakes.length > 0 && (
-            <div className="mt-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 p-4">
-              <p className="text-xs font-semibold text-rose-300 mb-1.5">{S.mistakes}</p>
-              <ul className="space-y-1 text-sm text-stone-300">
-                {lesson.mistakes.map((m, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="text-rose-400">✕</span>
-                    <span>{m}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {lesson.phone && (
-            <div className="mt-4 rounded-2xl bg-sky-500/10 border border-sky-500/30 p-4">
-              <p className="text-xs font-semibold text-sky-300 flex items-center gap-1.5 mb-1">
-                <Smartphone className="w-3.5 h-3.5" />
-                {S.phone}
-              </p>
-              <p className="text-sm text-stone-200">{capFirst(lesson.phone.replace(/^(Με το κινητό|With a phone|On a phone|On your phone):\s*/, ''))}</p>
-            </div>
-          )}
-          <div className="mt-5 grid sm:grid-cols-2 gap-3">
-            <div className="rounded-2xl bg-amber-500/10 border border-amber-500/30 p-4">
-              <p className="text-xs font-semibold text-amber-400 flex items-center gap-1.5 mb-1">
-                <Lightbulb className="w-3.5 h-3.5" />
-                {L.keyIdea}
-              </p>
-              <p className="text-sm text-stone-200">{lesson.keyIdea}</p>
-            </div>
-            <div className="rounded-2xl bg-emerald-500/10 border border-emerald-500/30 p-4">
-              <p className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mb-1">
-                <Target className="w-3.5 h-3.5" />
-                {L.tryIt}
-              </p>
-              <p className="text-sm text-stone-200">{lesson.tryIt}</p>
-            </div>
-          </div>
-
-          {lesson.see && lesson.see.filter((id) => enc.byId[id]).length > 0 && (
+          {idx === 0 && <ModuleRecall items={recallItems} />}
+          <LessonPlayer
+            lesson={lesson}
+            Widget={Widget}
+            extras={
+              <>{lesson.see && lesson.see.filter((id) => enc.byId[id]).length > 0 && (
             <p className="mt-4 text-xs text-stone-400 flex flex-wrap items-center gap-1.5">
               <span>{S.seeAlso}</span>
               {lesson.see
@@ -446,13 +373,9 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
                   </a>
                 ))}
             </p>
-          )}
-
-          {lesson.check && lesson.check.length > 0 && (
-            <div className="mt-5">
-              <QuizReview key={lesson.id} questions={lesson.check} title={S.check} compact />
-            </div>
-          )}
+          )}</>
+            }
+          />
           <div className="mt-6 pt-5 border-t border-stone-800 flex flex-wrap items-center justify-between gap-3">
             <label className="flex items-center gap-2 text-sm text-stone-300 cursor-pointer select-none">
               <input
@@ -516,6 +439,7 @@ export const LearningLab: React.FC<LearningLabProps> = ({ moduleId, lessonId, on
               </button>
             )}
           </div>
+          {idx === lessons.length - 1 && <ModuleEnd moduleId={mod.id} lessons={lessons} missions={richMod.missions} final={finalTests} />}
         </article>
       </div>
 
