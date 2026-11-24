@@ -7,7 +7,7 @@ import { useRichStrings } from './strings';
 const Frame: React.FC<{ title: string; intro: string; children: React.ReactNode }> = ({ title, intro, children }) => {
   const T = useRichStrings();
   return (
-    <div className="rounded-2xl bg-stone-950 border border-amber-500/30 p-4 keep-dark">
+    <div className="rounded-md bg-stone-950 p-4 keep-dark">
       <p className="text-xs font-semibold text-amber-400 flex items-center gap-1.5">
         <SlidersHorizontal className="w-3.5 h-3.5" />
         {T.tryHere}
@@ -214,6 +214,132 @@ const AperturePlay: React.FC<{ p: Extract<Play, { kind: 'aperture' }> }> = ({ p 
   );
 };
 
+
+/* ───────────── White balance: a lamp-lit room under different camera settings ───────────── */
+const WB_STEPS = [2500, 3200, 4000, 5000, 5600, 6500, 7500, 9000];
+const WbPlay: React.FC<{ p: Extract<Play, { kind: 'wb' }> }> = ({ p }) => {
+  const T = useRichStrings();
+  const [i, setI] = useState(4);
+  const k = WB_STEPS[i];
+  // mired difference: positive → camera set too high → image turns orange
+  const d = 1e6 / p.sceneK - 1e6 / k;
+  const amt = Math.max(-1, Math.min(1, d / 200));
+  const neutral = Math.abs(d) < 45;
+  // the photo is shown corrected for the scene; the overlay re-adds the cast
+  const overlay = amt > 0 ? `rgba(255,140,40,${0.42 * amt})` : `rgba(60,120,255,${0.5 * -amt})`;
+  return (
+    <Frame title={p.title} intro={p.intro}>
+      <div className="relative rounded-xl overflow-hidden bg-black" style={{ aspectRatio: String(p.photo.ratio), maxWidth: `calc(62vh * ${p.photo.ratio})`, marginInline: 'auto' }}>
+        <img src={photoUrl(p.photo)} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: 'sepia(0.15) saturate(0.55) hue-rotate(-8deg)' }} />
+        <div className="absolute inset-0 transition-colors duration-200" style={{ background: overlay, mixBlendMode: 'color' }} />
+        <div className="absolute inset-0 transition-colors duration-200" style={{ background: overlay, mixBlendMode: 'soft-light' }} />
+        <span className={`absolute top-2 left-2 right-2 sm:right-auto px-2 py-0.5 rounded-md text-xs font-bold ${neutral ? 'bg-emerald-500 text-stone-950' : 'bg-stone-900/85 text-stone-100'}`}>
+          {neutral ? T.wbOk : amt > 0 ? T.wbWarm : T.wbCool}
+        </span>
+      </div>
+      <Credit photo={p.photo} simulated />
+      <Slider label={T.wbLbl} value={i} max={WB_STEPS.length - 1} onChange={setI} shown={`${k} K`} marks={WB_STEPS.map((x) => `${x / 1000}k`)} />
+    </Frame>
+  );
+};
+
+/* ───────────── Crop: move the subject from centre to a third ───────────── */
+const CropPlay: React.FC<{ p: Extract<Play, { kind: 'crop' }> }> = ({ p }) => {
+  const T = useRichStrings();
+  const [v, setV] = useState(50);
+  const [grid, setGrid] = useState(true);
+  const win = 1 / p.photo.ratio; // width of a square window, as a fraction of the photo width
+  const maxOff = 1 - win;
+  const off = (v / 100) * maxOff;
+  const pos = (p.subjectX - off) / win; // where the subject sits inside the square (0–1)
+  const near = (a: number) => Math.abs(pos - a) < 0.045;
+  const state = near(1 / 3) || near(2 / 3) ? 'third' : near(0.5) ? 'center' : pos < 0.12 || pos > 0.88 ? 'edge' : '';
+  return (
+    <Frame title={p.title} intro={p.intro}>
+      <div className="relative rounded-xl overflow-hidden bg-black aspect-square max-w-[min(100%,62vh)] mx-auto">
+        <img src={photoUrl(p.photo)} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: `${maxOff > 0 ? (off / maxOff) * 100 : 50}% 50%` }} />
+        {grid && (
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 300 300" preserveAspectRatio="none">
+            {[100, 200].map((x) => (
+              <g key={x}>
+                <line x1={x} y1={0} x2={x} y2={300} stroke="#fff" strokeOpacity={0.7} strokeWidth={1} />
+                <line x1={0} y1={x} x2={300} y2={x} stroke="#fff" strokeOpacity={0.7} strokeWidth={1} />
+              </g>
+            ))}
+            {[100, 200].map((x) => [100, 200].map((y) => <circle key={`${x}${y}`} cx={x} cy={y} r={4} fill="#e0b062" />))}
+          </svg>
+        )}
+        {state && (
+          <span className={`absolute top-2 left-2 px-2 py-0.5 rounded-md text-xs font-bold ${state === 'third' ? 'bg-emerald-500 text-stone-950' : 'bg-stone-900/85 text-stone-100'}`}>
+            {state === 'third' ? T.onThird : state === 'center' ? T.onCenter : T.offEdge}
+          </span>
+        )}
+      </div>
+      <Credit photo={p.photo} />
+      <div className="mt-2 flex justify-end">
+        <label className="text-xs text-stone-400 flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" checked={grid} onChange={() => setGrid((g) => !g)} className="accent-stone-400" />
+          {T.gridOn}
+        </label>
+      </div>
+      <Slider label={T.cropLbl} value={v} max={100} onChange={setV} shown={`${Math.round(pos * 100)}%`} />
+    </Frame>
+  );
+};
+
+/* ───────────── Light: move a lamp around a head; small or large source ───────────── */
+const LightPlay: React.FC<{ p: Extract<Play, { kind: 'light' }> }> = ({ p }) => {
+  const T = useRichStrings();
+  const [a, setA] = useState(3); // 0 front … 3 side … 6 back
+  const [size, setSize] = useState(0); // 0 small … 4 large
+  const ang = (a / 6) * Math.PI; // 0 = in front (towards camera), π = behind
+  const lx = Math.sin(ang); // −1 … 1, light comes from the left side of the frame
+  const lz = Math.cos(ang); // 1 = front, −1 = back
+  const blur = 1 + size * 7;
+  const label = a <= 1 ? T.dirFront : a >= 5 ? T.dirBack : T.dirSide;
+  // shadow side: opposite to the light; strength grows when the light goes to the side/back
+  const shadowX = 150 + 60 * lx;
+  const darkness = Math.max(0, Math.min(0.92, 0.25 + 0.6 * (1 - lz) / 2 + (a >= 5 ? 0.3 : 0)));
+  const rim = a >= 4 ? (a - 3) / 3 : 0;
+  return (
+    <Frame title={p.title} intro={p.intro}>
+      <div className="grid sm:grid-cols-[1fr_9rem] gap-3 items-center">
+        <svg viewBox="0 0 300 300" className="w-full max-w-[340px] mx-auto rounded-xl bg-stone-800">
+          <defs>
+            <filter id="lp-soft" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation={blur} />
+            </filter>
+            <clipPath id="lp-head">
+              <ellipse cx={150} cy={140} rx={70} ry={92} />
+            </clipPath>
+          </defs>
+          <rect width={300} height={300} fill={a >= 5 ? '#e7dccb' : '#3a3632'} />
+          <ellipse cx={150} cy={140} rx={70} ry={92} fill="#d9b49a" />
+          <path d="M70 300 Q150 220 230 300 Z" fill="#6b4a2f" />
+          <g clipPath="url(#lp-head)">
+            {/* shadow side of the face */}
+            <ellipse cx={shadowX + 70} cy={150} rx={95} ry={130} fill="#000" opacity={darkness} filter="url(#lp-soft)" />
+            {/* nose shadow */}
+            <path d={`M150 120 L${150 + 22 * lx} 170 L150 172 Z`} fill="#000" opacity={a <= 4 ? 0.45 * Math.min(1, Math.abs(lx) + 0.2) : 0} filter="url(#lp-soft)" />
+          </g>
+          {rim > 0 && <ellipse cx={150} cy={140} rx={71} ry={93} fill="none" stroke="#fff5e0" strokeWidth={2 + 3 * rim} opacity={rim} />}
+          <circle cx={132} cy={130} r={5} fill="#2b211b" />
+          <circle cx={168} cy={130} r={5} fill="#2b211b" />
+          <path d="M135 196 Q150 204 165 196" stroke="#8f3030" strokeWidth={3} fill="none" />
+          {/* the lamp, seen from the camera */}
+          <circle cx={150 - 125 * lx} cy={40} r={6 + size * 6} fill="#e0b062" opacity={a >= 5 ? 0.35 : 1} />
+        </svg>
+        <div className="text-xs text-stone-300 space-y-1.5">
+          <p className="font-semibold text-stone-100">{label}</p>
+          <p className="text-stone-400">{size <= 1 ? T.hard : size >= 3 ? T.soft : ''}</p>
+        </div>
+      </div>
+      <Slider label={T.dirLbl} value={a} max={6} onChange={setA} shown={`${Math.round((a / 6) * 180)}°`} marks={['0°', '90°', '180°']} />
+      <Slider label={T.sizeLbl} value={size} max={4} onChange={setSize} shown={['XS', 'S', 'M', 'L', 'XL'][size]} />
+    </Frame>
+  );
+};
+
 export const PlayView: React.FC<{ play: Play }> = ({ play }) => {
   switch (play.kind) {
     case 'exposure':
@@ -224,5 +350,11 @@ export const PlayView: React.FC<{ play: Play }> = ({ play }) => {
       return <IsoPlay p={play} />;
     case 'aperture':
       return <AperturePlay p={play} />;
+    case 'wb':
+      return <WbPlay p={play} />;
+    case 'crop':
+      return <CropPlay p={play} />;
+    case 'light':
+      return <LightPlay p={play} />;
   }
 };

@@ -40,7 +40,13 @@ export type Play =
   | { kind: 'exposure'; photo: Photo; title: string; intro: string }
   | { kind: 'shutter'; title: string; intro: string }
   | { kind: 'iso'; photo: Photo; title: string; intro: string }
-  | { kind: 'aperture'; title: string; intro: string };
+  | { kind: 'aperture'; title: string; intro: string }
+  /** white balance on a photo lit by a lamp (scene ≈ sceneK) */
+  | { kind: 'wb'; photo: Photo; sceneK: number; title: string; intro: string }
+  /** slide a square crop over a wide photo; the subject sits at subjectX (0–1) */
+  | { kind: 'crop'; photo: Photo; subjectX: number; title: string; intro: string }
+  /** move a light around a face: direction and size of the source */
+  | { kind: 'light'; title: string; intro: string };
 
 export type Test =
   | { kind: 'mc'; q: string; options: string[]; answer: number; why: string }
