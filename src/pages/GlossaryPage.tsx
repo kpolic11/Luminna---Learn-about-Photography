@@ -77,7 +77,7 @@ export const GlossaryPage: React.FC<{ termId?: string }> = ({ termId }) => {
               e.preventDefault();
               document.getElementById(`g-${letter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="px-2 py-1 rounded-md bg-stone-900 border border-stone-800 text-stone-300 hover:border-amber-500/50"
+            className="w-7 h-7 inline-flex items-center justify-center text-stone-300 hover:text-amber-400 hover:underline"
           >
             {letter}
           </a>
@@ -87,15 +87,15 @@ export const GlossaryPage: React.FC<{ termId?: string }> = ({ termId }) => {
       <div className="mt-6 space-y-8">
         {groups.map(([letter, items]) => (
           <section key={letter} id={`g-${letter}`} className="scroll-mt-28">
-            <h2 className="text-2xl font-display font-bold text-amber-400 mb-3">{letter}</h2>
-            <dl className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <h2 className="text-3xl font-display font-bold text-amber-400 pb-2 border-b border-stone-700">{letter}</h2>
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
               {items.map((e) => {
                 const li = linkInfo(e.link);
                 return (
                   <div
                     key={e.id}
                     id={`term-${e.id}`}
-                    className={`scroll-mt-28 rounded-2xl bg-stone-900 border p-4 ${termId === e.id ? 'border-amber-500/70' : 'border-stone-800'}`}
+                    className={`scroll-mt-28 py-4 border-b ${termId === e.id ? 'border-amber-400 bg-stone-900 px-3' : 'border-stone-800'}`}
                   >
                     <dt className="font-semibold text-stone-100">{e.term}</dt>
                     {e.aka && <p className="text-[11px] text-stone-500 mt-0.5">{e.aka}</p>}

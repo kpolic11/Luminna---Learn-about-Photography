@@ -89,11 +89,11 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
   const anchor = (i: number) => `sec-${chapter.id}-${i}`;
 
   return (
-    <article className="mt-8 bg-stone-900/80 border border-stone-800 rounded-3xl p-5 sm:p-10 shadow-2xl">
+    <article className="mt-8">
       {/* Meta */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-stone-800">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
             {C.chapter} {chapter.number}
           </span>
           <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border ${STATUS_STYLE[chapter.status]}`}>{C.status[chapter.status]}</span>
@@ -153,11 +153,11 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
       {/* Title */}
       <header className="mt-6">
         <h2 className="text-2xl sm:text-4xl font-display font-bold text-stone-100 leading-tight">{chapter.title}</h2>
-        <p className="text-base sm:text-lg font-serif-reading italic text-amber-400/90 mt-1">{chapter.subtitle}</p>
+        <p className="text-base sm:text-lg text-stone-400 mt-1">{chapter.subtitle}</p>
       </header>
 
       {/* Hero image */}
-      <figure className="mt-6 rounded-2xl overflow-hidden border border-stone-800 shadow-xl bg-stone-950">
+      <figure className="mt-6 overflow-hidden border border-stone-800 bg-stone-900 p-2">
         <div className={`relative aspect-[16/9] max-h-[480px] overflow-hidden ${contain ? 'bg-stone-200' : ''}`}>
           <SafeImage
             src={chapter.imageUrl}
@@ -175,7 +175,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
 
       {/* Table of contents */}
       {headedSections.length > 2 && (
-        <nav className="mt-6 rounded-2xl bg-stone-950/60 border border-stone-800 p-4">
+        <nav className="mt-6 border-y border-stone-800 py-4">
           <p className="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-2 flex items-center gap-1.5">
             <BookMarked className="w-3.5 h-3.5 text-amber-400" />
             {C.contents}
@@ -223,9 +223,9 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
             </section>
             {chapter.widget === 'camera-obscura' && i === 1 && <CameraObscuraVisualizer />}
             {chapter.keyQuote && i === Math.min(2, chapter.sections.length - 1) && (
-              <blockquote className="p-6 rounded-2xl bg-stone-950/90 border-l-4 border-amber-500 shadow-md">
+              <blockquote className="pl-6 py-2 border-l-2 border-amber-400">
                 <Quote className="w-6 h-6 text-amber-400 mb-2 opacity-80" />
-                <p className="text-base sm:text-lg font-serif-reading italic text-stone-200">«{chapter.keyQuote.text}»</p>
+                <p className="text-base sm:text-lg font-display text-xl sm:text-2xl leading-snug text-stone-100">«{chapter.keyQuote.text}»</p>
                 <footer className="text-xs font-semibold text-amber-400 mt-3 font-mono">— {chapter.keyQuote.author}</footer>
               </blockquote>
             )}
@@ -247,7 +247,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
           </h3>
           <div className="grid sm:grid-cols-2 gap-3">
             {chapter.didYouKnow.map((f, i) => (
-              <p key={i} className="rounded-2xl bg-stone-950/70 border border-stone-800 p-4 text-sm text-stone-300 leading-relaxed">
+              <p key={i} className="border-l-2 border-stone-700 pl-4 py-1 text-sm text-stone-300 leading-relaxed">
                 {f}
               </p>
             ))}
@@ -257,7 +257,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
 
       {/* Featured work */}
       {chapter.featuredWork && (
-        <section className="mt-10 rounded-3xl bg-gradient-to-br from-amber-950/40 to-stone-950 border border-amber-800/40 p-5 sm:p-7">
+        <section className="keep-dark mt-12 rounded-md bg-stone-950 p-5 sm:p-7">
           <p className="text-xs font-semibold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
             <Eye className="w-4 h-4" />
             {C.featured} · <span className="text-stone-400 normal-case tracking-normal">{C.featuredSub}</span>
@@ -268,7 +268,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
           </p>
           <div className={`mt-4 grid ${chapter.featuredWork.imageUrl ? 'md:grid-cols-2' : ''} gap-5`}>
             {chapter.featuredWork.imageUrl && (
-              <figure className="rounded-2xl overflow-hidden bg-stone-200 border border-stone-700">
+              <figure className="overflow-hidden bg-stone-200 border border-stone-700">
                 <SafeImage src={chapter.featuredWork.imageUrl} alt={chapter.featuredWork.title} className="w-full max-h-[380px] object-contain" fallbackClassName="w-full h-64" />
                 {chapter.featuredWork.credit && <figcaption className="text-[10px] text-stone-500 bg-stone-950 p-2">{chapter.featuredWork.credit}</figcaption>}
               </figure>
@@ -302,7 +302,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
 
       {/* Exercise */}
       {chapter.exercise && (
-        <section className="mt-8 rounded-3xl bg-emerald-950/30 border border-emerald-800/40 p-5 sm:p-7">
+        <section className="mt-10 border-t-2 border-emerald-400 pt-5">
           <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
             <PenTool className="w-4 h-4" />
             {C.exercise}
@@ -327,7 +327,7 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
 
       {/* Outline (short / planned) */}
       {chapter.status !== 'full' && chapter.outline && chapter.outline.length > 0 && (
-        <section className="mt-8 rounded-2xl bg-stone-950/60 border border-dashed border-stone-700 p-5">
+        <section className="mt-10 border-t border-stone-700 pt-5">
           <p className="text-xs font-semibold uppercase tracking-wider text-sky-300 flex items-center gap-1.5 mb-3">
             <ListChecks className="w-4 h-4" />
             {C.outlineTitle}
@@ -377,11 +377,11 @@ export const ChapterReader: React.FC<ChapterReaderProps> = ({ chapter, index, to
         const movs = (CHAPTER_MOVEMENTS[chapter.id] ?? []).map((m) => enc.movementById[m]).filter(Boolean);
         if (!people.length && !movs.length) return null;
         return (
-          <section className="mt-8 rounded-2xl bg-stone-900 border border-stone-800 p-4">
+          <section className="mt-10 border-t border-stone-700 pt-5">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">{C.inEnc}</h3>
             <div className="flex flex-wrap gap-1.5">
               {movs.map((m) => (
-                <a key={m.id} href={href('encyclopedia', 'm', m.id)} className="px-2.5 py-1 rounded-lg text-xs bg-amber-500/10 border border-amber-500/40 text-amber-300 hover:border-amber-400">
+                <a key={m.id} href={href('encyclopedia', 'm', m.id)} className="px-2.5 py-1 rounded-full text-xs border border-stone-700 text-stone-200 hover:border-amber-400 hover:border-amber-400">
                   {m.title}
                 </a>
               ))}

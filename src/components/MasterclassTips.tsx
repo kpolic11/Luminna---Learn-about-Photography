@@ -10,13 +10,13 @@ interface MasterclassTipsProps {
 
 const ICONS: Record<string, React.ReactNode> = {
   Sun: <Sun className="w-5 h-5 text-amber-400" />,
-  Sliders: <Sliders className="w-5 h-5 text-cyan-400" />,
-  Grid3X3: <Grid3X3 className="w-5 h-5 text-emerald-400" />,
-  Smartphone: <Smartphone className="w-5 h-5 text-purple-400" />,
-  CheckSquare: <CheckSquare className="w-5 h-5 text-pink-400" />,
-  BookOpen: <BookOpen className="w-5 h-5 text-blue-400" />,
-  Printer: <Printer className="w-5 h-5 text-amber-500" />,
-  Heart: <Heart className="w-5 h-5 text-rose-400" />,
+  Sliders: <Sliders className="w-5 h-5 text-stone-400" />,
+  Grid3X3: <Grid3X3 className="w-5 h-5 text-stone-400" />,
+  Smartphone: <Smartphone className="w-5 h-5 text-stone-400" />,
+  CheckSquare: <CheckSquare className="w-5 h-5 text-stone-400" />,
+  BookOpen: <BookOpen className="w-5 h-5 text-stone-400" />,
+  Printer: <Printer className="w-5 h-5 text-stone-400" />,
+  Heart: <Heart className="w-5 h-5 text-stone-400" />,
 };
 
 export const MasterclassTips: React.FC<MasterclassTipsProps> = ({ onOpenSimulator, onOpenComposition, onOpenLab }) => {
@@ -26,9 +26,9 @@ export const MasterclassTips: React.FC<MasterclassTipsProps> = ({ onOpenSimulato
   const [completed, setCompleted] = useState<Record<number, boolean>>({});
 
   return (
-    <div className="bg-stone-900 border border-stone-800 rounded-3xl p-5 md:p-8 shadow-2xl">
+    <div className="border-t border-stone-700 pt-8">
       <div className="pb-4 border-b border-stone-800">
-        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-400">
           {T.badge}
         </span>
         <h3 className="text-xl md:text-2xl font-display font-bold text-stone-100 mt-1">{T.title(content.tips.length)}</h3>
@@ -42,17 +42,15 @@ export const MasterclassTips: React.FC<MasterclassTipsProps> = ({ onOpenSimulato
           return (
             <div
               key={tip.id}
-              className={`rounded-2xl border transition-all ${
-                isExpanded ? 'bg-stone-950 border-amber-500/60 shadow-lg' : 'bg-stone-950/60 border-stone-800 hover:border-stone-700'
-              }`}
+              className={`border-b transition-all ${isExpanded ? 'border-stone-600' : 'border-stone-800'}`}
             >
               <button
                 onClick={() => setExpandedId(isExpanded ? null : tip.id)}
-                className="w-full text-left p-4 md:p-5 flex items-center justify-between gap-4"
+                className="w-full text-left py-4 flex items-center justify-between gap-4"
                 aria-expanded={isExpanded}
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-stone-900 border border-stone-800 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0">
                     {ICONS[tip.icon] ?? <Sparkles className="w-5 h-5 text-amber-400" />}
                   </div>
                   <div>
@@ -62,7 +60,7 @@ export const MasterclassTips: React.FC<MasterclassTipsProps> = ({ onOpenSimulato
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
                   {isDone && (
-                    <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded hidden sm:inline">
+                    <span className="text-[11px] font-semibold text-stone-400 hidden sm:inline">
                       {T.done}
                     </span>
                   )}
@@ -71,11 +69,11 @@ export const MasterclassTips: React.FC<MasterclassTipsProps> = ({ onOpenSimulato
               </button>
 
               {isExpanded && (
-                <div className="px-4 pb-5 md:px-5 md:pb-6 pt-1 border-t border-stone-800/80">
+                <div className="pl-[3.4rem] pr-4 pb-6 pt-0">
                   <p className="text-xs md:text-sm text-stone-300 leading-relaxed mt-3">{tip.description}</p>
-                  <div className="mt-4 p-3.5 rounded-xl bg-stone-900 border border-stone-800 text-xs">
+                  <div className="mt-4 border-l-2 border-amber-400 pl-4 py-1 text-xs">
                     <span className="text-amber-400 font-semibold block mb-1">{T.keyRule}</span>
-                    <span className="text-stone-300 font-mono text-[11px]">{tip.keyRule}</span>
+                    <span className="text-stone-200 font-mono text-[11px]">{tip.keyRule}</span>
                   </div>
                   <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 border-t border-stone-800/60">
                     <label className="flex items-start gap-2.5 cursor-pointer">
@@ -90,17 +88,17 @@ export const MasterclassTips: React.FC<MasterclassTipsProps> = ({ onOpenSimulato
                       </span>
                     </label>
                     {tip.simulatorType === 'exposure' && onOpenSimulator && (
-                      <button onClick={onOpenSimulator} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 shrink-0">
+                      <button onClick={onOpenSimulator} className="text-xs font-medium text-stone-300 underline decoration-stone-600 underline-offset-4 hover:decoration-amber-400 shrink-0">
                         {T.openSim}
                       </button>
                     )}
                     {tip.simulatorType === 'composition' && onOpenComposition && (
-                      <button onClick={onOpenComposition} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 shrink-0">
+                      <button onClick={onOpenComposition} className="text-xs font-medium text-stone-300 underline decoration-stone-600 underline-offset-4 hover:decoration-amber-400 shrink-0">
                         {T.openComp}
                       </button>
                     )}
                     {tip.simulatorType === 'light' && onOpenLab && (
-                      <button onClick={onOpenLab} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40 shrink-0">
+                      <button onClick={onOpenLab} className="text-xs font-medium text-stone-300 underline decoration-stone-600 underline-offset-4 hover:decoration-amber-400 shrink-0">
                         {T.openLab}
                       </button>
                     )}

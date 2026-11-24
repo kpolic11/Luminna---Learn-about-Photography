@@ -57,14 +57,14 @@ const EncyclopediaIndex: React.FC<{ tab: Tab }> = ({ tab }) => {
         </p>
       </PageHeader>
 
-      <nav className="flex gap-1.5 overflow-x-auto pb-2 -mx-1 px-1" aria-label={ui.site.encyclopedia}>
+      <nav className="flex overflow-x-auto border-b border-stone-800" aria-label={ui.site.encyclopedia}>
         {TABS.map((t) => (
           <a
             key={t}
             href={href('encyclopedia', t === 'start' ? undefined : t)}
             aria-current={tab === t ? 'page' : undefined}
-            className={`shrink-0 px-3.5 py-2 rounded-xl text-sm font-semibold border transition-colors ${
-              tab === t ? 'bg-amber-500 text-stone-950 border-amber-500' : 'bg-stone-900 text-stone-300 border-stone-800 hover:border-stone-600'
+            className={`shrink-0 px-4 py-2.5 -mb-px text-sm border-b-2 transition-colors ${
+              tab === t ? 'border-amber-400 text-stone-100 font-semibold' : 'border-transparent text-stone-400 hover:text-stone-100'
             }`}
           >
             {E.tabs[t]}
@@ -97,12 +97,12 @@ const PhotographerCard: React.FC<{ p: Photographer; n?: number }> = ({ p, n }) =
   return (
     <a
       href={href('encyclopedia', 'p', p.id)}
-      className="group flex gap-3 p-3.5 rounded-2xl bg-stone-900 border border-stone-800 hover:border-amber-500/50 transition-colors min-w-0"
+      className="group flex gap-3 py-3.5 border-b border-stone-800 hover:bg-stone-900/70 transition-colors min-w-0"
     >
       {p.image ? (
-        <SafeImage src={p.image.url} alt="" loading="lazy" className="w-14 h-14 rounded-xl object-cover shrink-0 bg-stone-800" fallbackClassName="w-14 h-14 rounded-xl shrink-0" />
+        <SafeImage src={p.image.url} alt="" loading="lazy" className="w-14 h-14 object-cover shrink-0 bg-stone-800 grayscale-[30%]" fallbackClassName="w-14 h-14 shrink-0" />
       ) : (
-        <div className="w-14 h-14 rounded-xl shrink-0 bg-stone-800 border border-stone-700 flex items-center justify-center font-display text-lg text-amber-300/80">
+        <div className="w-14 h-14 shrink-0 bg-stone-900 border border-stone-800 flex items-center justify-center font-display text-lg text-amber-400">
           {n !== undefined ? n : initials}
         </div>
       )}
@@ -121,7 +121,7 @@ const PhotographerCard: React.FC<{ p: Photographer; n?: number }> = ({ p, n }) =
 };
 
 const Grid: React.FC<{ items: Photographer[]; numbered?: boolean }> = ({ items, numbered }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
     {items.map((p, i) => (
       <PhotographerCard key={p.id} p={p} n={numbered ? i + 1 : undefined} />
     ))}
@@ -180,7 +180,7 @@ const MovementsTab: React.FC = () => {
       {enc.movements.map((m) => {
         const ps = enc.photographers.filter((p) => p.movements.includes(m.id)).sort((a, b) => a.born - b.born);
         return (
-          <article key={m.id} className="rounded-2xl bg-stone-900 border border-stone-800 p-5">
+          <article key={m.id} className="border-t border-stone-700 pt-4 pb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <a href={href('encyclopedia', 'm', m.id)} className="text-lg font-display font-bold text-stone-100 hover:text-amber-300">
                 {m.title}
@@ -228,11 +228,11 @@ const GenresTab: React.FC = () => {
   const { ui, lang } = useLanguage();
   const enc = getEncyclopedia(lang);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
       {enc.genres.map((g) => {
         const n = enc.photographers.filter((p) => p.genres.includes(g.id)).length;
         return (
-          <a key={g.id} href={href('encyclopedia', 'g', g.id)} className="rounded-2xl bg-stone-900 border border-stone-800 p-5 hover:border-amber-500/50 group">
+          <a key={g.id} href={href('encyclopedia', 'g', g.id)} className="border-t border-stone-700 pt-4 pb-6 hover:bg-stone-900/70 group">
             <p className="text-lg font-display font-bold text-stone-100 group-hover:text-amber-300">{g.title}</p>
             <p className="text-xs text-stone-500 mt-0.5">{ui.enc.count(n)}</p>
             <p className="text-sm text-stone-400 mt-2 font-serif-reading leading-relaxed">{g.summary}</p>
@@ -421,7 +421,7 @@ const PhotographerView: React.FC<{ id: string }> = ({ id }) => {
         <div className="flex flex-col sm:flex-row gap-6">
           {p.image && (
             <figure className="sm:w-56 shrink-0">
-              <SafeImage src={p.image.url} alt={p.name} className="w-full aspect-[4/5] object-cover rounded-2xl border border-stone-800 bg-stone-900" />
+              <SafeImage src={p.image.url} alt={p.name} className="w-full aspect-[4/5] object-cover border border-stone-800 bg-stone-900 p-2" />
               <figcaption className="text-[11px] text-stone-500 mt-1.5 leading-snug">
                 {E.imageCredit}: {p.image.credit}
               </figcaption>
@@ -481,7 +481,7 @@ const PhotographerView: React.FC<{ id: string }> = ({ id }) => {
         <Section id="enc-glance" title={E.glance} icon={<Eye className="w-5 h-5 text-amber-400" />}>
           <ul className="grid sm:grid-cols-2 gap-2">
             {p.glance.map((g, k) => (
-              <li key={k} className="rounded-xl bg-stone-900 border border-stone-800 px-4 py-3 text-sm text-stone-200">
+              <li key={k} className="border-b border-stone-800 py-3 text-sm text-stone-200">
                 {g}
               </li>
             ))}
@@ -500,7 +500,7 @@ const PhotographerView: React.FC<{ id: string }> = ({ id }) => {
       <Section id="enc-works" title={E.works} icon={<Images className="w-5 h-5 text-amber-400" />}>
         <div className="space-y-3">
           {p.works.map((w, k) => (
-            <div key={k} className="rounded-2xl bg-stone-900 border border-stone-800 p-4">
+            <div key={k} className="border-t border-stone-700 pt-3">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <p className="font-semibold text-stone-100">{w.title}</p>
                 <span className="text-xs font-mono text-amber-400">{w.year}</span>
@@ -534,7 +534,7 @@ const PhotographerView: React.FC<{ id: string }> = ({ id }) => {
 
       {p.exercise && (
         <Section id="enc-exercise" title={`${E.exercise}: ${p.exercise.title}`} icon={<Target className="w-5 h-5 text-emerald-400" />}>
-          <ol className="rounded-2xl bg-emerald-500/10 border border-emerald-500/30 p-5 space-y-2">
+          <ol className="border-l-2 border-emerald-400 pl-5 py-1 space-y-2">
             {p.exercise.steps.map((st, k) => (
               <li key={k} className="flex gap-3 text-stone-200 text-sm">
                 <span className="font-mono text-emerald-400 shrink-0">{k + 1}.</span>
@@ -546,7 +546,7 @@ const PhotographerView: React.FC<{ id: string }> = ({ id }) => {
       )}
 
       {chapter && (
-        <a href={href('history', chapter.id)} className="mt-10 flex items-center gap-3 rounded-2xl bg-stone-900 border border-stone-800 p-4 hover:border-amber-500/50">
+        <a href={href('history', chapter.id)} className="mt-10 flex items-center gap-3 border-y border-stone-800 py-4 hover:bg-stone-900/70">
           <BookOpen className="w-5 h-5 text-amber-400 shrink-0" />
           <span className="text-sm text-stone-300">
             {E.chapter}: <strong className="text-stone-100">{chapter.number}. {chapter.title}</strong>
@@ -621,7 +621,7 @@ const GroupView: React.FC<{
         <Section id="enc-traits" title={E.traits}>
           <ul className="grid sm:grid-cols-2 gap-2">
             {traits.map((t, k) => (
-              <li key={k} className="rounded-xl bg-stone-900 border border-stone-800 px-4 py-3 text-sm text-stone-200">
+              <li key={k} className="border-b border-stone-800 py-3 text-sm text-stone-200">
                 {t}
               </li>
             ))}
@@ -722,7 +722,7 @@ const HowMadeTab: React.FC = () => {
       <p className="max-w-3xl text-stone-300 font-serif-reading leading-relaxed">{H.intro}</p>
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((h, i) => (
-          <a key={h.id} href={href('encyclopedia', 'h', h.id)} className="group rounded-2xl bg-stone-900 border border-stone-800 overflow-hidden hover:border-amber-500/50">
+          <a key={h.id} href={href('encyclopedia', 'h', h.id)} className="group">
             <div className="aspect-[4/3] bg-stone-950 overflow-hidden">
               <SafeImage src={h.images[h.images.length - 1].url} alt={h.title} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform" loading="lazy" />
             </div>
@@ -789,7 +789,7 @@ const HowMadeView: React.FC<{ id: string }> = ({ id }) => {
             <SafeImage
               src={im.url}
               alt={h.captions[k] ?? h.title}
-              className={`w-full rounded-2xl border border-stone-800 bg-stone-900 ${many && h.images.length > 2 && k < h.images.length - 1 ? 'aspect-square object-cover' : 'max-h-[70vh] object-contain'}`}
+              className={`w-full border border-stone-800 bg-stone-900 p-2 ${many && h.images.length > 2 && k < h.images.length - 1 ? 'aspect-square object-cover' : 'max-h-[70vh] object-contain'}`}
               loading={k > 0 ? 'lazy' : undefined}
             />
             <figcaption className="text-[11px] text-stone-500 mt-1.5 leading-snug">
@@ -809,7 +809,7 @@ const HowMadeView: React.FC<{ id: string }> = ({ id }) => {
       <Section id="how-decisions" title={H.decisions} icon={<Eye className="w-5 h-5 text-amber-400" />}>
         <ul className="space-y-3">
           {h.decisions.map((d, k) => (
-            <li key={k} className="rounded-xl bg-stone-900 border border-stone-800 px-4 py-3 text-stone-200 font-serif-reading leading-relaxed">
+            <li key={k} className="border-b border-stone-800 py-3 text-stone-200 font-serif-reading leading-relaxed">
               {d}
             </li>
           ))}
@@ -826,7 +826,7 @@ const HowMadeView: React.FC<{ id: string }> = ({ id }) => {
         </ul>
       </Section>
       <Section id="how-exercise" title={`${E.exercise}: ${h.exercise.title}`} icon={<Target className="w-5 h-5 text-emerald-400" />}>
-        <ol className="rounded-2xl bg-emerald-500/10 border border-emerald-500/30 p-5 space-y-2">
+        <ol className="border-l-2 border-emerald-400 pl-5 py-1 space-y-2">
           {h.exercise.steps.map((st, k) => (
             <li key={k} className="flex gap-3 text-stone-200 text-sm">
               <span className="font-mono text-emerald-400 shrink-0">{k + 1}.</span>
@@ -838,7 +838,7 @@ const HowMadeView: React.FC<{ id: string }> = ({ id }) => {
 
       <div className="mt-10 grid sm:grid-cols-2 gap-3">
         {ph && (
-          <a href={href('encyclopedia', 'p', ph.id)} className="flex items-center gap-3 rounded-2xl bg-stone-900 border border-stone-800 p-4 hover:border-amber-500/50">
+          <a href={href('encyclopedia', 'p', ph.id)} className="flex items-center gap-3 border-y border-stone-800 py-4 hover:bg-stone-900/70">
             <Users className="w-5 h-5 text-amber-400 shrink-0" />
             <span className="text-sm text-stone-300">
               {H.photographer}: <strong className="text-stone-100">{ph.name}</strong>
@@ -846,7 +846,7 @@ const HowMadeView: React.FC<{ id: string }> = ({ id }) => {
           </a>
         )}
         {chapter && (
-          <a href={href('history', chapter.id)} className="flex items-center gap-3 rounded-2xl bg-stone-900 border border-stone-800 p-4 hover:border-amber-500/50">
+          <a href={href('history', chapter.id)} className="flex items-center gap-3 border-y border-stone-800 py-4 hover:bg-stone-900/70">
             <BookOpen className="w-5 h-5 text-amber-400 shrink-0" />
             <span className="text-sm text-stone-300">
               {E.chapter}: <strong className="text-stone-100">{chapter.number}. {chapter.title}</strong>

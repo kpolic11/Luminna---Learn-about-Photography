@@ -115,7 +115,7 @@ function AppInner() {
     <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col">
       <Navbar page={route.page} canListen={!!narration} onPlayTTS={() => setShowAudio(true)} isAudioPlaying={isPlaying} />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 pb-16 w-full">
+      <main className={`flex-1 max-w-6xl mx-auto px-4 sm:px-6 pb-16 w-full ${['history', 'encyclopedia', 'timelines', 'glossary', 'community'].includes(route.page) ? 'archive' : ''}`}>
         {showAudio && narration && (
           <div className="sticky top-20 z-30 mt-4">
             <AudioNarrationBar narration={narration} onClose={() => setShowAudio(false)} onPlayingChange={setIsPlaying} />

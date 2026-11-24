@@ -335,3 +335,23 @@ html.light ::selection { background: oklch(87% 0.02 75); }
 html.light ::-webkit-scrollbar-track { background: #f3efe8; }
 html.light ::-webkit-scrollbar-thumb { background: #d6d3d1; }
 html.light img { filter: none; }
+
+/* ── The archive (history, encyclopedia, timelines, glossary): accent becomes rust ── */
+.archive {
+  --color-amber-200: oklch(84% 0.06 50);
+  --color-amber-300: oklch(79% 0.08 50);
+  --color-amber-400: oklch(74% 0.1 50);
+  --color-amber-500: oklch(90% 0.015 75);
+  --color-amber-600: oklch(82% 0.02 70);
+}
+html.light .archive {
+  --color-amber-200: oklch(40% 0.1 45);
+  --color-amber-300: oklch(46% 0.11 45);
+  --color-amber-400: oklch(54% 0.12 45);
+  --color-amber-500: oklch(27% 0.015 50);
+  --color-amber-600: oklch(20% 0.012 50);
+}
+html.light .archive .keep-dark {
+  --color-amber-300: oklch(79% 0.08 50);
+  --color-amber-400: oklch(74% 0.1 50);
+}

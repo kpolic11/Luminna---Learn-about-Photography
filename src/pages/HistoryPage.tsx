@@ -71,31 +71,31 @@ export const HistoryPage: React.FC<{ chapterId?: string }> = ({ chapterId }) => 
       <div className="space-y-12">
         {groups.map((g) => (
           <section key={g.part}>
-            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-400 mb-4">{ui.chapters.parts[g.part]}</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-400 mb-5 pb-2 border-b border-stone-800">{ui.chapters.parts[g.part]}</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
               {g.items.map((c) => (
                 <a
                   key={c.id}
                   href={href('history', c.id)}
-                  className="group rounded-2xl overflow-hidden bg-stone-900/70 border border-stone-800 hover:border-amber-500/60 transition-colors flex flex-col"
+                  className="group flex flex-col"
                 >
-                  <div className="relative aspect-[16/9] bg-stone-950 overflow-hidden">
+                  <div className="relative aspect-[3/2] bg-stone-900 border border-stone-800 p-2 overflow-hidden">
                     <SafeImage
                       src={c.imageUrl}
                       alt=""
                       loading="lazy"
-                      className={`w-full h-full ${c.imageFit === 'contain' ? 'object-contain bg-stone-200' : 'object-cover'} opacity-80 group-hover:opacity-100 group-hover:scale-[1.03] transition-all`}
+                      className={`w-full h-full ${c.imageFit === 'contain' ? 'object-contain bg-stone-200' : 'object-cover'} grayscale-[30%] group-hover:grayscale-0 transition-all duration-500`}
                       fallbackClassName="w-full h-full"
                     />
-                    <span className="absolute top-3 left-3 font-mono text-xs font-bold bg-stone-950/80 text-amber-400 px-2 py-0.5 rounded">
+                    <span className="absolute top-3 left-3 font-mono text-[10px] bg-stone-950/90 text-amber-400 px-1.5 py-0.5">
                       {String(c.number).padStart(2, '0')}
                     </span>
                     <span className={`absolute top-3 right-3 w-2.5 h-2.5 rounded-full ring-2 ring-stone-950 ${DOT[c.status]}`} title={ui.chapters.status[c.status]} />
                   </div>
-                  <div className="p-4 flex-1 flex flex-col">
+                  <div className="pt-3 flex-1 flex flex-col">
                     <p className="text-[11px] font-mono text-stone-500">{c.era}</p>
-                    <h3 className="text-lg font-display font-bold text-stone-100 mt-1 leading-snug group-hover:text-amber-300">{c.title}</h3>
-                    <p className="text-sm text-stone-400 mt-1.5 line-clamp-2 font-serif-reading italic">{c.subtitle}</p>
+                    <h3 className="text-lg font-display font-bold text-stone-100 mt-1 leading-snug group-hover:underline decoration-amber-400 underline-offset-4">{c.title}</h3>
+                    <p className="text-sm text-stone-400 mt-1.5 line-clamp-2">{c.subtitle}</p>
                     {c.status !== 'planned' && (
                       <p className="mt-auto pt-3 text-xs text-stone-500 flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" />

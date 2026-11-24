@@ -47,7 +47,7 @@ export const Timelines: React.FC<{ tab?: string }> = ({ tab }) => {
 
   return (
     <div>
-      <div role="tablist" className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div role="tablist" className="flex overflow-x-auto border-b border-stone-800">
         {TIMELINE_TABS.map((t) => {
           const Icon = TAB_ICON[t];
           const on = t === active;
@@ -57,8 +57,8 @@ export const Timelines: React.FC<{ tab?: string }> = ({ tab }) => {
               role="tab"
               aria-selected={on}
               href={href('timelines', t === 'general' ? undefined : t)}
-              className={`rounded-2xl border px-4 py-3 text-sm font-semibold flex items-center gap-2 transition-colors ${
-                on ? 'bg-amber-500 text-stone-950 border-amber-500' : 'bg-stone-900/70 border-stone-800 text-stone-300 hover:border-stone-600'
+              className={`shrink-0 px-4 py-2.5 -mb-px border-b-2 text-sm flex items-center gap-2 transition-colors ${
+                on ? 'border-amber-400 text-stone-100 font-semibold' : 'border-transparent text-stone-400 hover:text-stone-100'
               }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
@@ -80,9 +80,9 @@ export const Timelines: React.FC<{ tab?: string }> = ({ tab }) => {
             <ol className="relative mt-4 border-l-2 border-stone-800 ml-3 sm:ml-[7.5rem] space-y-6">
               {g.items.map((e) => (
                 <li key={e.id} className="relative pl-6 sm:pl-8">
-                  <span className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full ring-4 ring-stone-950 ${e.major ? 'bg-amber-400' : DOT_STYLE[e.tracks[0]]}`} />
+                  <span className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full ring-4 ring-stone-950 scale-75 ${e.major ? 'bg-amber-400' : DOT_STYLE[e.tracks[0]]}`} />
                   <p className="sm:absolute sm:-left-[8.5rem] sm:w-28 sm:text-right font-mono text-sm font-bold text-amber-400 sm:top-0.5">{yearLabel(e)}</p>
-                  <div className="rounded-2xl bg-stone-900/70 border border-stone-800 p-4 sm:p-5">
+                  <div className="pb-2">
                     <h3 className="text-base sm:text-lg font-display font-bold text-stone-100 leading-snug">{e.title}</h3>
                     <p className="text-sm sm:text-base text-stone-300 mt-1.5 leading-relaxed font-serif-reading">{e.desc}</p>
                     <div className="mt-3 flex flex-wrap items-center gap-2">
