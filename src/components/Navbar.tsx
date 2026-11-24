@@ -29,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({ page, canListen = false, onPlayT
 
   const linkClass = (active: boolean) =>
     `px-3 py-2 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap ${
-      active ? 'text-stone-100 font-semibold shadow-[inset_0_-2px_0_var(--color-amber-500)] rounded-none' : 'text-stone-400 hover:text-stone-100'
+      active ? 'text-stone-100 font-semibold shadow-[inset_0_-2px_0_var(--color-amber-400)] rounded-none' : 'text-stone-400 hover:text-stone-100'
     }`;
 
   return (

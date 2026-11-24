@@ -1,16 +1,16 @@
 :root {
-  /* Accent: sepia / ink — quiet, like a toned print (dark theme) */
-  --color-amber-50: oklch(97% 0.01 80);
-  --color-amber-100: oklch(93% 0.02 78);
-  --color-amber-200: oklch(88% 0.035 75);
-  --color-amber-300: oklch(82% 0.05 72);
-  --color-amber-400: oklch(76% 0.06 70);
-  --color-amber-500: oklch(88% 0.03 75);
-  --color-amber-600: oklch(80% 0.04 72);
-  --color-amber-700: oklch(45% 0.05 60);
-  --color-amber-800: oklch(36% 0.04 58);
-  --color-amber-900: oklch(28% 0.03 55);
-  --color-amber-950: oklch(20% 0.02 55);
+  /* Accent: buttons in ink, a deep darkroom red only for small details */
+  --color-amber-50: oklch(96% 0.015 30);
+  --color-amber-100: oklch(91% 0.035 25);
+  --color-amber-200: oklch(85% 0.06 25);
+  --color-amber-300: oklch(78% 0.09 25);
+  --color-amber-400: oklch(72% 0.11 25);
+  --color-amber-500: oklch(90% 0.015 75);
+  --color-amber-600: oklch(82% 0.02 70);
+  --color-amber-700: oklch(45% 0.1 25);
+  --color-amber-800: oklch(36% 0.08 25);
+  --color-amber-900: oklch(28% 0.06 25);
+  --color-amber-950: oklch(20% 0.04 25);
 }
 
 
@@ -32,17 +32,17 @@ html.light {
   --color-stone-800: oklch(90.5% 0.01 80);
   --color-stone-900: oklch(98.6% 0.004 85);
   --color-stone-950: oklch(96.5% 0.007 80);
-  --color-amber-50: oklch(25% 0.03 55);
-  --color-amber-100: oklch(31% 0.035 55);
-  --color-amber-200: oklch(36% 0.04 55);
-  --color-amber-300: oklch(42% 0.05 55);
-  --color-amber-400: oklch(46% 0.055 55);
-  --color-amber-500: oklch(31% 0.025 55);
-  --color-amber-600: oklch(24% 0.02 55);
-  --color-amber-700: oklch(75% 0.03 70);
-  --color-amber-800: oklch(87% 0.02 75);
-  --color-amber-900: oklch(93% 0.012 75);
-  --color-amber-950: oklch(97% 0.006 80);
+  --color-amber-50: oklch(28% 0.08 25);
+  --color-amber-100: oklch(34% 0.1 25);
+  --color-amber-200: oklch(39% 0.11 25);
+  --color-amber-300: oklch(44% 0.12 26);
+  --color-amber-400: oklch(48% 0.13 27);
+  --color-amber-500: oklch(27% 0.015 50);
+  --color-amber-600: oklch(20% 0.012 50);
+  --color-amber-700: oklch(76% 0.05 25);
+  --color-amber-800: oklch(88% 0.025 25);
+  --color-amber-900: oklch(94% 0.012 30);
+  --color-amber-950: oklch(97% 0.006 40);
   --color-cyan-50: oklch(30.2% 0.056 229.695);
   --color-cyan-100: oklch(39.8% 0.07 227.392);
   --color-cyan-200: oklch(45% 0.085 224.283);
@@ -155,17 +155,17 @@ html.light .keep-dark {
   --color-stone-800: oklch(26.8% 0.007 34.298);
   --color-stone-900: oklch(21.6% 0.006 56.043);
   --color-stone-950: oklch(14.7% 0.004 49.25);
-  --color-amber-50: oklch(97% 0.01 80);
-  --color-amber-100: oklch(93% 0.02 78);
-  --color-amber-200: oklch(88% 0.035 75);
-  --color-amber-300: oklch(82% 0.05 72);
-  --color-amber-400: oklch(76% 0.06 70);
-  --color-amber-500: oklch(88% 0.03 75);
-  --color-amber-600: oklch(80% 0.04 72);
-  --color-amber-700: oklch(45% 0.05 60);
-  --color-amber-800: oklch(36% 0.04 58);
-  --color-amber-900: oklch(28% 0.03 55);
-  --color-amber-950: oklch(20% 0.02 55);
+  --color-amber-50: oklch(96% 0.015 30);
+  --color-amber-100: oklch(91% 0.035 25);
+  --color-amber-200: oklch(85% 0.06 25);
+  --color-amber-300: oklch(78% 0.09 25);
+  --color-amber-400: oklch(72% 0.11 25);
+  --color-amber-500: oklch(90% 0.015 75);
+  --color-amber-600: oklch(82% 0.02 70);
+  --color-amber-700: oklch(45% 0.1 25);
+  --color-amber-800: oklch(36% 0.08 25);
+  --color-amber-900: oklch(28% 0.06 25);
+  --color-amber-950: oklch(20% 0.04 25);
   --color-cyan-50: oklch(98.4% 0.019 200.873);
   --color-cyan-100: oklch(95.6% 0.045 203.388);
   --color-cyan-200: oklch(91.7% 0.08 205.041);
